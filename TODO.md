@@ -8,13 +8,13 @@ This is a list of tasks, features, and bug fixes that need to be addressed in th
 - [ ] Add more display styles for the posts
 - [ ] Implement support for custom post types
 - [ ] Add more unit tests
+- [ ] Make the javascript the same for editor and front end
 
 ## Features
 
 - [ ] Add an option to filter posts by author
 - [ ] Implement pagination for displaying a large number of posts
 - [ ] Configure the javascript better to display posts
-- [ ] Make the javascript the same for editor and front end
 - [ ] add options for different styling
 
 ## Bug Fixes
