@@ -34,4 +34,3 @@ function my_custom_script()
 	wp_enqueue_script('my-script', plugin_dir_url(__FILE__) . 'js/viewScript.js', array(), false, true);
 }
 add_action('wp_enqueue_scripts', 'my_custom_script');
-
