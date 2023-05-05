@@ -1,4 +1,3 @@
 {
-    "presets": ["@wordpress/default"]
-  }
-  
+  "presets": ["@wordpress/default"]
+}
