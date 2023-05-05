@@ -14,11 +14,11 @@ export default function abelDisplayAnimate() {
 						timeout = setTimeout( later, wait );
 					};
 				}
-	
+
 				function getRandomInt( max ) {
 					return Math.floor( Math.random() * max );
 				}
-	
+
 				function getRandomColor( colors, currentColor ) {
 					let newColor;
 					do {
@@ -26,7 +26,7 @@ export default function abelDisplayAnimate() {
 					} while ( newColor === currentColor );
 					return newColor;
 				}
-	
+
 				function getRandomShape( currentShape ) {
 					const shapes = [
 						'circle',
@@ -43,7 +43,7 @@ export default function abelDisplayAnimate() {
 					} while ( newShape === currentShape );
 					return newShape;
 				}
-	
+
 				function applyRandomAnimation( shape, currentAnimation ) {
 					const animations = [ 'rotation', 'scale', 'skew' ];
 					let selectedAnimation;
@@ -51,7 +51,7 @@ export default function abelDisplayAnimate() {
 						selectedAnimation =
 							animations[ getRandomInt( animations.length ) ];
 					} while ( selectedAnimation === currentAnimation );
-	
+
 					if ( selectedAnimation === 'rotation' ) {
 						shape.style.animation = `rotate ${
 							3 + getRandomInt( 4 )
@@ -65,19 +65,25 @@ export default function abelDisplayAnimate() {
 							3 + getRandomInt( 4 )
 						}s linear infinite`;
 					}
-	
+
 					return selectedAnimation;
 				}
-	
+
 				function changeColorAndShape() {
 					const shapes = document.querySelectorAll( '.shape' );
-					const colors = [ 'red', 'blue', 'green', 'yellow', 'purple' ];
-	
+					const colors = [
+						'red',
+						'blue',
+						'green',
+						'yellow',
+						'purple',
+					];
+
 					shapes.forEach( ( shape ) => {
 						const color = getRandomColor( colors );
 						shape.style.backgroundColor = color;
 						shape.style.borderColor = color;
-	
+
 						const randomShape = getRandomShape();
 						if ( randomShape === 'circle' ) {
 							shape.style.borderRadius = '50%';
@@ -88,7 +94,7 @@ export default function abelDisplayAnimate() {
 						} else if ( randomShape === 'ellipse' ) {
 							shape.style.borderRadius = '50%';
 						}
-	
+
 						// Calculate the size based on the grid cell's dimensions
 						const gridSize =
 							shape.parentElement.getBoundingClientRect();
@@ -108,12 +114,14 @@ export default function abelDisplayAnimate() {
 						shape.dataset.animation = animation;
 					} );
 				}
-	
+
 				function resizeElements() {
 					const shapes = document.querySelectorAll( '.shape' );
-	
-					const numberOfRows = Math.ceil( Math.sqrt( shapes.length ) );
-	
+
+					const numberOfRows = Math.ceil(
+						Math.sqrt( shapes.length )
+					);
+
 					shapes.forEach( ( shape, index ) => {
 						shape.style.gridColumn = `${
 							( index % numberOfRows ) + 1
@@ -125,26 +133,26 @@ export default function abelDisplayAnimate() {
 				}
 				// Call the changeColorAndShape function immediately
 				changeColorAndShape();
-	
+
 				// Then set the interval
 				let intervalId = setInterval(
 					debounce( changeColorAndShape, 100 ),
 					3000
 				);
-	
+
 				const shapeElements = document.querySelectorAll( '.shape' );
 				shapeElements.forEach( ( shape ) => {
 					shape.addEventListener( 'mouseover', () => {
 						clearInterval( intervalId );
 						shape.style.animationPlayState = 'paused';
 					} );
-	
+
 					shape.addEventListener( 'mouseout', () => {
 						intervalId = setInterval( changeColorAndShape, 3000 );
 						shape.style.animationPlayState = 'running';
 					} );
 				} );
-	
+
 				window.addEventListener( 'load', resizeElements );
 				window.addEventListener( 'resize', resizeElements );
 			} catch ( error ) {
@@ -155,5 +163,4 @@ export default function abelDisplayAnimate() {
 			}
 		}
 	} );
-	
 }
