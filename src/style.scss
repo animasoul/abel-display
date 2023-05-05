@@ -32,7 +32,7 @@
   margin: 0; 
 }
   
-  @keyframes shapeChange {
+  @keyframes shape-change {
 	0%, 100% {
 	  border-radius: 0%;
 	}
@@ -68,7 +68,7 @@
 	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   } 
   
-  // Animations
+  /* Animations */
   @keyframes rotate {
 	0% {
 	  transform: rotate(0);

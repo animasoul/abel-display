@@ -31,6 +31,7 @@
 	"dependencies": {
 		"@wordpress/block-editor": "^12.0.0",
 		"@wordpress/data": "^9.2.0",
-		"@wordpress/i18n": "^4.32.0"
+		"@wordpress/i18n": "^4.32.0",
+		"react": "^18.2.0"
 	}
 }

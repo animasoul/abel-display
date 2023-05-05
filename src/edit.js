@@ -83,7 +83,7 @@ class AbelDisplayEdit extends Component {
 			return (
 				<div className="wp-block-create-block-abel-display">
 					<div id="abel-wrapper">
-						<div className="shape">__("Loading...")</div>
+						<div className="shape">__(&quot;Loading...&quot;)</div>
 					</div>
 				</div>
 			);

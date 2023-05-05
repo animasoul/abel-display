@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import apiFetch from '@wordpress/api-fetch';
 import Edit from '../edit';
 

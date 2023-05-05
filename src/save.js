@@ -1,5 +1,6 @@
 // import { RichText } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 const AbelDisplaySave = ( { attributes } ) => {
 	const { posts, displayStyle } = attributes;

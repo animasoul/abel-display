@@ -1,7 +1,7 @@
 document.addEventListener( 'DOMContentLoaded', () => {
 	const wrapper = document.getElementById( 'abel-wrapper' );
 
-	if ( wrapper != null ) {
+	if ( wrapper !== null ) {
 		try {
 			function debounce( func, wait ) {
 				let timeout;
