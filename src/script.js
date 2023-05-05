@@ -156,10 +156,12 @@ export default function abelDisplayAnimate() {
 				window.addEventListener( 'load', resizeElements );
 				window.addEventListener( 'resize', resizeElements );
 			} catch ( error ) {
+				/* eslint-disable no-console */
 				console.error(
 					'An error occurred while executing the script:',
 					error
 				);
+				/* eslint-enable no-console */
 			}
 		}
 	} );

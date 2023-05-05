@@ -18,14 +18,39 @@ const WrapperComponent = ( props ) => {
 	return <Edit attributes={ attributes } setAttributes={ setAttributes } />;
 };
 
+apiFetch.mockImplementation( ( request ) => {
+	if ( request.path.startsWith( '/wp/v2/categories' ) ) {
+		return Promise.resolve( {
+			json: () => Promise.resolve( [ { id: 1, name: 'Category 1' } ] ),
+		} );
+	}
+
+	if ( request.path.startsWith( '/wp/v2/tags' ) ) {
+		return Promise.resolve( {
+			json: () => Promise.resolve( [ { id: 2, name: 'Tag 1' } ] ),
+		} );
+	}
+
+	if ( request.path.startsWith( '/wp/v2/posts' ) ) {
+		return Promise.resolve( {
+			json: () =>
+				Promise.resolve( [
+					{
+						id: 3,
+						title: { rendered: 'Post 1' },
+						content: { rendered: 'Post content 1' },
+					},
+				] ),
+		} );
+	}
+
+	return Promise.reject( 'Unknown API request' );
+} );
+
 describe( 'Edit component', () => {
 	test( 'should render without crashing', () => {
-		apiFetch.mockImplementation( () =>
-			Promise.resolve( {
-				json: () =>
-					Promise.resolve( [ { id: 1, name: 'Category 1' } ] ),
-			} )
-		);
+		const { getByText } = render( <WrapperComponent /> );
+		expect( getByText( 'Loading...' ) ).toBeInTheDocument();
 
 		render( <WrapperComponent /> );
 	} );

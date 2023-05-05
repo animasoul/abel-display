@@ -50,16 +50,16 @@ class AbelDisplayEdit extends Component {
 		if ( ! categories ) {
 			apiFetch( { path: '/wp/v2/categories?_fields=id,name' } )
 				.then( ( response ) => response.json() )
-				.then( ( categories ) => {
-					setAttributes( { categories } );
+				.then( ( fetchedCategories ) => {
+					setAttributes( { fetchedCategories } );
 				} );
 		}
 
 		if ( ! tags ) {
 			apiFetch( { path: '/wp/v2/tags?_fields=id,name' } )
 				.then( ( response ) => response.json() )
-				.then( ( tags ) => {
-					setAttributes( { tags } );
+				.then( ( fetchedTags ) => {
+					setAttributes( { fetchedTags } );
 				} );
 		}
 	}
@@ -83,7 +83,7 @@ class AbelDisplayEdit extends Component {
 			return (
 				<div className="wp-block-create-block-abel-display">
 					<div id="abel-wrapper">
-						<div className="shape">__(&quot;Loading...&quot;)</div>
+						<div className="shape">{ 'Loading...' }</div>
 					</div>
 				</div>
 			);
