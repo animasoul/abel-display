@@ -4,7 +4,7 @@ This is a list of tasks, features, and bug fixes that need to be addressed in th
 
 ## Tasks
 
-- [ ] Improve performance of retrieving and displaying posts
+- [x] Improve performance of retrieving and displaying posts
 - [ ] Add more display styles for the posts
 - [ ] Implement support for custom post types
 - [ ] Add more unit tests
@@ -21,5 +21,5 @@ This is a list of tasks, features, and bug fixes that need to be addressed in th
 
 - [ ] Fix issue with post thumbnails not displaying correctly on some themes
 - [ ] Still a few linting errors
-- [ ] One test failing
+- [x] One test failing
 

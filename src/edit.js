@@ -10,7 +10,7 @@ const getFeaturedOrFirstImage = ( post ) => {
 	if ( post._embedded && post._embedded[ 'wp:featuredmedia' ] ) {
 		return post._embedded[ 'wp:featuredmedia' ][ 0 ].source_url;
 	}
-	const content = post.content.rendered;
+	const content = post.content ? post.content.rendered : null;
 	const imgRegex = /<img[^>]+src="(http:\/\/[^">]+|https:\/\/[^">]+)"/g;
 	const match = imgRegex.exec( content );
 	if ( match && match[ 1 ] ) {
