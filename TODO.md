@@ -20,6 +20,7 @@ This is a list of tasks, features, and bug fixes that need to be addressed in th
 ## Bug Fixes
 
 - [ ] Fix issue with post thumbnails not displaying correctly on some themes
+- [ ] animation buggy in editor
 - [x] Still a few linting errors
 - [x] One test failing
 
