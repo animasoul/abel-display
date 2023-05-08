@@ -133,7 +133,7 @@ function resizeElements() {
 	} );
 }
 
-document.addEventListener( 'DOMContentLoaded', () => {
+function startAnimation() {
 	const wrapper = document.getElementById( 'abel-wrapper' );
 
 	if ( wrapper !== null ) {
@@ -158,4 +158,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			/* eslint-enable no-console */
 		}
 	}
+}
+
+document.addEventListener( 'DOMContentLoaded', () => {
+	startAnimation();
 } );
