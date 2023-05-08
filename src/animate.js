@@ -159,6 +159,9 @@ function startAnimation() {
 		}
 	}
 }
+document.addEventListener( 'DOMContentLoaded', () => {
+	startAnimation();
+} );
 export default function abelDisplayAnimate() {
 	startAnimation();
 }

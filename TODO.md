@@ -8,7 +8,7 @@ This is a list of tasks, features, and bug fixes that need to be addressed in th
 - [ ] Add more display styles for the posts
 - [ ] Implement support for custom post types
 - [ ] Add more unit tests
-- [ ] Make the javascript the same for editor and front end
+- [x] Make the javascript the same for editor and front end
 
 ## Features
 

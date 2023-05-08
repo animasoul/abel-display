@@ -4,7 +4,7 @@ import { Fragment, Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
-import abelDisplayAnimate from './script';
+import abelDisplayAnimate from './animate';
 
 const getFeaturedOrFirstImage = ( post ) => {
 	if ( post._embedded && post._embedded[ 'wp:featuredmedia' ] ) {
