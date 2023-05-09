@@ -1,17 +1,4 @@
-/**
- * Registers a new block provided a unique name and an object defining its behavior.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
- */
 import { registerBlockType } from '@wordpress/blocks';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * All files containing `style` keyword are bundled together. The code used
- * gets applied both to the front of your site and to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './style.scss';
 
 /**
@@ -20,6 +7,7 @@ import './style.scss';
 import Edit from './edit';
 import save from './save';
 import metadata from './block.json';
+import useImageSizes from './useImageSizes';
 
 /**
  * WordPress dependencies
@@ -73,6 +61,10 @@ registerBlockType( metadata.name, {
 			type: 'string',
 			default: 'default',
 		},
+		imageSize: {
+			type: 'string',
+			default: 'medium',
+		},
 	},
 
 	/**
@@ -84,6 +76,8 @@ registerBlockType( metadata.name, {
 		if ( ! categories || ! tags ) {
 			return 'Loading...';
 		}
+
+		const imageSizes = useImageSizes();
 
 		return (
 			<>
@@ -113,6 +107,23 @@ registerBlockType( metadata.name, {
 								setAttributes( { tag: value } )
 							}
 						/>
+
+						<SelectControl
+							label="Image Size"
+							value={ props.attributes.imageSize }
+							options={
+								imageSizes && imageSizes.length > 0
+									? imageSizes.map( ( size ) => ( {
+											label: size,
+											value: size,
+									  } ) )
+									: []
+							}
+							onChange={ ( value ) =>
+								setAttributes( { imageSize: value } )
+							}
+						/>
+
 						<SelectControl
 							label="Display Style"
 							value={ props.attributes.displayStyle }

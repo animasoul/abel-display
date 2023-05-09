@@ -1,23 +1,11 @@
-import { withColors } from '@wordpress/block-editor';
+import { withColors, useSelect } from '@wordpress/block-editor';
 import { withSelect } from '@wordpress/data';
 import { Fragment, Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 import abelDisplayAnimate from './animate';
-
-const getFeaturedOrFirstImage = ( post ) => {
-	if ( post._embedded && post._embedded[ 'wp:featuredmedia' ] ) {
-		return post._embedded[ 'wp:featuredmedia' ][ 0 ].source_url;
-	}
-	const content = post.content ? post.content.rendered : null;
-	const imgRegex = /<img[^>]+src="(http:\/\/[^">]+|https:\/\/[^">]+)"/g;
-	const match = imgRegex.exec( content );
-	if ( match && match[ 1 ] ) {
-		return match[ 1 ];
-	}
-	return null;
-};
+import { getFeaturedOrFirstImage } from './utils';
 
 class AbelDisplayEdit extends Component {
 	constructor() {
@@ -77,7 +65,8 @@ class AbelDisplayEdit extends Component {
 	}
 
 	render() {
-		const { category, tag, posts, displayStyle } = this.props.attributes;
+		const { category, tag, posts, displayStyle, imageSize } =
+			this.props.attributes;
 
 		if ( ! category || ! tag ) {
 			return (
@@ -102,17 +91,27 @@ class AbelDisplayEdit extends Component {
 				{ posts && posts.length > 0 ? (
 					<div id="abel-wrapper">
 						{ posts.map( ( post ) => {
-							const imageSrc = getFeaturedOrFirstImage( post ); // Get the featured or first image from the post
+							const featuredImage = getFeaturedOrFirstImage(
+								post,
+								imageSize
+							);
+
+							if ( ! featuredImage.alt ) {
+								featuredImage.alt = post.title.rendered;
+							}
+
 							return (
 								<a
 									className="shape"
 									href={ post.link }
 									key={ post.id }
 								>
-									{ imageSrc && (
+									{ featuredImage && (
 										<img
-											src={ imageSrc }
-											alt={ post.title.rendered }
+											src={ featuredImage.url }
+											width={ featuredImage.width }
+											height={ featuredImage.height }
+											alt={ featuredImage.alt }
 											loading="lazy"
 										/>
 									) }
@@ -142,7 +141,7 @@ export default compose( [
 			post_type: 'post',
 			_embed: true,
 			_fields:
-				'id,link,title.rendered,content.rendered,_embedded.wp:featuredmedia',
+				'id,link,title.rendered,content.rendered,_links,_embedded.wp:featuredmedia',
 		};
 
 		if ( category && category.length ) {
@@ -152,12 +151,15 @@ export default compose( [
 		if ( tag && tag.length ) {
 			postsQuery.tags = tag.join();
 		}
-		// console.log("postquery: ");
-		// console.log(postsQuery);
+		// console.log( 'postquery: ' );
+		// console.log( postsQuery );
 
-		const posts = getEntityRecords( 'postType', 'post', postsQuery );
-		// console.log("posts");
-		// console.log(posts);
+		const posts = getEntityRecords( 'postType', 'post', {
+			...postsQuery,
+			_embed: 1,
+		} );
+		// console.log( 'posts' );
+		// console.log( posts );
 
 		return {
 			posts,

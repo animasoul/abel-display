@@ -1,9 +1,9 @@
-// import { RichText } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { getFeaturedOrFirstImage } from './utils';
 
 const AbelDisplaySave = ( { attributes } ) => {
-	const { posts, displayStyle } = attributes;
+	const { posts, displayStyle, imageSize } = attributes;
 
 	if ( posts.length === 0 ) {
 		return null;
@@ -15,22 +15,37 @@ const AbelDisplaySave = ( { attributes } ) => {
 		>
 			{ posts && posts.length > 0 ? (
 				<div id="abel-wrapper">
-					{ posts.map( ( post ) => (
-						<a key={ post.id } className="shape" href={ post.link }>
-							{ post.title.rendered }
-						</a>
-					) ) }
+					{ posts.map( ( post ) => {
+						const featuredImage = getFeaturedOrFirstImage(
+							post,
+							imageSize
+						);
+						if ( ! featuredImage.alt ) {
+							featuredImage.alt = post.title.rendered;
+						}
+						return (
+							<a
+								key={ post.id }
+								className="shape"
+								href={ post.link }
+							>
+								{ featuredImage && (
+									<img
+										src={ featuredImage.url }
+										width={ featuredImage.width }
+										height={ featuredImage.height }
+										alt={ featuredImage.alt }
+										loading="lazy"
+									/>
+								) }
+								{ post.title.rendered }
+							</a>
+						);
+					} ) }
 				</div>
 			) : (
-				<Fragment>{ __( 'No posts found.' ) }</Fragment>
+				<Fragment>{ __( `No posts found.` ) }</Fragment>
 			) }
-			{ /* <script type="text/javascript">
-			{`document.addEventListener('DOMContentLoaded', function() { 
-				abelDisplayFunction(); 
-			}, false);`}
-			
-
-			</script> */ }
 		</div>
 	);
 };
