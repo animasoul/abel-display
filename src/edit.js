@@ -1,4 +1,4 @@
-import { withColors, useSelect } from '@wordpress/block-editor';
+import { withColors } from '@wordpress/block-editor';
 import { withSelect } from '@wordpress/data';
 import { Fragment, Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
