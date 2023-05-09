@@ -1,6 +1,6 @@
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { getFeaturedOrFirstImage } from './utils';
+import { getFeaturedOrFirstImage } from './utils/getFeaturedOrFirstImage';
 
 const AbelDisplaySave = ( { attributes } ) => {
 	const { posts, displayStyle, imageSize } = attributes;
@@ -20,7 +20,7 @@ const AbelDisplaySave = ( { attributes } ) => {
 							post,
 							imageSize
 						);
-						if ( ! featuredImage.alt ) {
+						if ( featuredImage && ! featuredImage.alt ) {
 							featuredImage.alt = post.title.rendered;
 						}
 						return (

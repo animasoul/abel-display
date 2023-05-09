@@ -4,8 +4,8 @@ import { Fragment, Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
-import abelDisplayAnimate from './animate';
-import { getFeaturedOrFirstImage } from './utils';
+import abelDisplayAnimate from './utils/animate';
+import { getFeaturedOrFirstImage } from './utils/getFeaturedOrFirstImage';
 
 class AbelDisplayEdit extends Component {
 	constructor() {
@@ -96,7 +96,7 @@ class AbelDisplayEdit extends Component {
 								imageSize
 							);
 
-							if ( ! featuredImage.alt ) {
+							if ( featuredImage && ! featuredImage.alt ) {
 								featuredImage.alt = post.title.rendered;
 							}
 
