@@ -112,6 +112,9 @@ class AbelDisplayEdit extends Component {
 										img_src: featuredImage
 											? featuredImage.url
 											: '',
+										alt: featuredImage.alt,
+										width: featuredImage.width,
+										height: featuredImage.height,
 									} ) }
 								>
 									{ featuredImage && (

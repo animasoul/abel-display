@@ -138,7 +138,10 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
           id: post.id,
           title: post.title.rendered,
           link: post.link,
-          img_src: featuredImage ? featuredImage.url : ''
+          img_src: featuredImage ? featuredImage.url : '',
+          alt: featuredImage.alt,
+          width: featuredImage.width,
+          height: featuredImage.height
         })
       }, featuredImage && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
         src: featuredImage.url,
@@ -407,7 +410,10 @@ const AbelDisplaySave = _ref => {
         id: post.id,
         title: post.title.rendered,
         link: post.link,
-        img_src: featuredImage ? featuredImage.url : ''
+        img_src: featuredImage ? featuredImage.url : '',
+        alt: featuredImage.alt,
+        width: featuredImage.width,
+        height: featuredImage.height
       })
     }, featuredImage && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: featuredImage.url,
@@ -470,20 +476,18 @@ function applyRandomAnimation(shape, currentAnimation) {
   }
   return selectedAnimation;
 }
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction() {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
+
+// function debounce( func, wait ) {
+// 	let timeout;
+// 	return function executedFunction( ...args ) {
+// 		const later = () => {
+// 			clearTimeout( timeout );
+// 			func( ...args );
+// 		};
+// 		clearTimeout( timeout );
+// 		timeout = setTimeout( later, wait );
+// 	};
+// }
 
 // Animation and shape change functions
 function changeColorAndShape() {
@@ -509,6 +513,10 @@ function changeColorAndShape() {
     shape.style.width = `${width}px`;
     shape.style.height = `${height}px`;
     const animation = applyRandomAnimation(shape);
+    shape.removeEventListener('mouseover', onMouseOver);
+    shape.removeEventListener('mouseout', onMouseOut);
+    shape.addEventListener('mouseover', onMouseOver);
+    shape.addEventListener('mouseout', onMouseOut);
     shape.dataset.animation = animation;
   });
 }
@@ -546,11 +554,8 @@ function expandShape(shape) {
     closeMethods: ['overlay', 'button', 'escape'],
     closeLabel: 'Close',
     cssClass: ['custom-class-1', 'custom-class-2'],
-    onOpen: () => {
-      console.log('modal open');
-    },
+    onOpen: () => {},
     onClose: () => {
-      console.log('modal closed');
       shape.style.animation = '';
     }
   });
@@ -558,7 +563,7 @@ function expandShape(shape) {
   // Set the modal content
   modal.setContent(`
 	  <h2>${post.title}</h2>
-	  <img src="${post.img_src}" alt="${post.title}">
+	  <img src="${post.img_src}" alt="${post.alt}" width="${post.width}" height="${post.height}">
 	  <a href="${post.link}">Read more</a>
 	`);
 
@@ -580,6 +585,7 @@ function startAnimation() {
       window.addEventListener('load', resizeElements);
       window.addEventListener('resize', resizeElements);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('An error occurred while executing the script:', error);
     }
   }
