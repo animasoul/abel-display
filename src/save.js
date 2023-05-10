@@ -28,6 +28,14 @@ const AbelDisplaySave = ( { attributes } ) => {
 								key={ post.id }
 								className="shape"
 								href={ post.link }
+								data-post={ JSON.stringify( {
+									id: post.id,
+									title: post.title.rendered,
+									link: post.link,
+									img_src: featuredImage
+										? featuredImage.url
+										: '',
+								} ) }
 							>
 								{ featuredImage && (
 									<img

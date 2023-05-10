@@ -24,9 +24,11 @@
 		"@wordpress/prettier-config": "^2.15.0",
 		"@wordpress/scripts": "^26.0.0",
 		"babel-jest": "^29.5.0",
+		"css-loader": "^6.7.3",
 		"eslint": "^8.37.0",
 		"jest": "^29.5.0",
 		"jest-fetch-mock": "^3.0.3",
+		"style-loader": "^3.3.2",
 		"stylelint": "^15.6.0",
 		"stylelint-config-standard": "^33.0.0"
 	},
@@ -34,6 +36,7 @@
 		"@wordpress/block-editor": "^12.0.0",
 		"@wordpress/data": "^9.2.0",
 		"@wordpress/i18n": "^4.32.0",
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"tingle.js": "^0.16.0"
 	}
 }

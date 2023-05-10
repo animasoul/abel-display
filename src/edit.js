@@ -105,6 +105,14 @@ class AbelDisplayEdit extends Component {
 									className="shape"
 									href={ post.link }
 									key={ post.id }
+									data-post={ JSON.stringify( {
+										id: post.id,
+										title: post.title.rendered,
+										link: post.link,
+										img_src: featuredImage
+											? featuredImage.url
+											: '',
+									} ) }
 								>
 									{ featuredImage && (
 										<img
