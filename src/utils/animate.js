@@ -1,15 +1,5 @@
-function debounce( func, wait ) {
-	let timeout;
-	return function executedFunction( ...args ) {
-		const later = () => {
-			clearTimeout( timeout );
-			func( ...args );
-		};
-		clearTimeout( timeout );
-		timeout = setTimeout( later, wait );
-	};
-}
-
+import tingle from 'tingle.js';
+// Utility functions
 function getRandomInt( max ) {
 	return Math.floor( Math.random() * max );
 }
@@ -48,23 +38,34 @@ function applyRandomAnimation( shape, currentAnimation ) {
 
 	if ( selectedAnimation === 'rotation' ) {
 		shape.style.animation = `rotate ${
-			3 + getRandomInt( 4 )
+			5 + getRandomInt( 5 )
 		}s linear infinite`;
 	} else if ( selectedAnimation === 'scale' ) {
 		shape.style.animation = `scale ${
-			3 + getRandomInt( 4 )
+			5 + getRandomInt( 5 )
 		}s linear infinite`;
 	} else if ( selectedAnimation === 'skew' ) {
 		shape.style.animation = `skew ${
-			3 + getRandomInt( 4 )
+			5 + getRandomInt( 5 )
 		}s linear infinite`;
 	}
 
 	return selectedAnimation;
 }
 
-let intervalId;
+function debounce( func, wait ) {
+	let timeout;
+	return function executedFunction( ...args ) {
+		const later = () => {
+			clearTimeout( timeout );
+			func( ...args );
+		};
+		clearTimeout( timeout );
+		timeout = setTimeout( later, wait );
+	};
+}
 
+// Animation and shape change functions
 function changeColorAndShape() {
 	const shapes = document.querySelectorAll( '.shape' );
 	const colors = [ 'red', 'blue', 'green', 'yellow', 'purple' ];
@@ -85,7 +86,6 @@ function changeColorAndShape() {
 			shape.style.borderRadius = '50%';
 		}
 
-		// Calculate the size based on the grid cell's dimensions
 		const gridSize = shape.parentElement.getBoundingClientRect();
 		const width = Math.floor(
 			gridSize.width * ( 0.5 + Math.random() * 0.5 )
@@ -98,31 +98,11 @@ function changeColorAndShape() {
 		shape.style.height = `${ height }px`;
 		const animation = applyRandomAnimation( shape );
 		shape.dataset.animation = animation;
-
-		// Update the event listeners
-		shape.removeEventListener( 'mouseover', onMouseOver );
-		shape.removeEventListener( 'mouseout', onMouseOut );
-		shape.addEventListener( 'mouseover', onMouseOver );
-		shape.addEventListener( 'mouseout', onMouseOut );
 	} );
 }
 
-// Define the onMouseOver and onMouseOut functions
-function onMouseOver() {
-	clearInterval( intervalId );
-	this.style.animationPlayState = 'paused';
-}
-
-function onMouseOut() {
-	intervalId = setInterval( changeColorAndShape, 3000 );
-	this.style.animationPlayState = 'running';
-}
-// Then set the interval
-intervalId = setInterval( debounce( changeColorAndShape, 100 ), 3000 );
-
 function resizeElements() {
 	const shapes = document.querySelectorAll( '.shape' );
-
 	const numberOfRows = Math.ceil( Math.sqrt( shapes.length ) );
 
 	shapes.forEach( ( shape, index ) => {
@@ -132,36 +112,91 @@ function resizeElements() {
 		} / span 1`;
 	} );
 }
+let intervalId;
+// Event listeners
+function onMouseOver() {
+	clearInterval( intervalId );
+	this.style.animationPlayState = 'paused';
+}
 
+function onMouseOut() {
+	intervalId = setInterval( changeColorAndShape, 3000 );
+	this.style.animationPlayState = 'running';
+}
+
+// Main functions
+function expandShape( shape ) {
+	if ( ! shape.dataset ) return;
+
+	const post = JSON.parse( shape.dataset.post );
+
+	// Disable animations when the shape is expanded
+	shape.style.animation = 'none';
+
+	// Create a new tingle modal
+	const modal = new tingle.modal( {
+		footer: false,
+		stickyFooter: false,
+		closeMethods: [ 'overlay', 'button', 'escape' ],
+		closeLabel: 'Close',
+		cssClass: [ 'custom-class-1', 'custom-class-2' ],
+		onOpen: () => {
+			console.log( 'modal open' );
+		},
+		onClose: () => {
+			console.log( 'modal closed' );
+			shape.style.animation = '';
+		},
+	} );
+
+	// Set the modal content
+	modal.setContent( `
+	  <h2>${ post.title }</h2>
+	  <img src="${ post.img_src }" alt="${ post.title }">
+	  <a href="${ post.link }">Read more</a>
+	` );
+
+	// Open the modal
+	modal.open();
+
+	clearInterval( intervalId );
+}
 function startAnimation() {
 	const wrapper = document.getElementById( 'abel-wrapper' );
 
 	if ( wrapper !== null ) {
 		try {
-			// Call the changeColorAndShape function immediately
 			changeColorAndShape();
+			resizeElements();
 
 			const shapeElements = document.querySelectorAll( '.shape' );
-			// eslint-disable-next-line no-unused-vars
 			shapeElements.forEach( ( shape ) => {
-				// ...
+				shape.removeEventListener( 'click', onShapeClick );
+				shape.addEventListener( 'click', onShapeClick );
 			} );
 
 			window.addEventListener( 'load', resizeElements );
 			window.addEventListener( 'resize', resizeElements );
 		} catch ( error ) {
-			/* eslint-disable no-console */
 			console.error(
 				'An error occurred while executing the script:',
 				error
 			);
-			/* eslint-enable no-console */
 		}
 	}
 }
+function onShapeClick( e ) {
+	e.preventDefault();
+	expandShape( this, true );
+}
+
+// Initialize the animations
 document.addEventListener( 'DOMContentLoaded', () => {
-	startAnimation();
+	if ( ! document.body.classList.contains( 'wp-admin' ) ) {
+		startAnimation();
+	}
 } );
+
 export default function abelDisplayAnimate() {
 	startAnimation();
 }

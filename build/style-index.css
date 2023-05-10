@@ -8,7 +8,6 @@
  * Replace them with your own styles or remove the file completely.
  */
 #abel-wrapper {
-  /* stylelint-disable-next-line CssSyntaxError */
   font-size: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -24,9 +23,6 @@
   transition: background-color 1s ease, border-color 1s ease, width 1s ease, height 1s ease, border-radius 1s ease;
   box-sizing: border-box;
   margin: 0;
-}
-#abel-wrapper .shape img {
-  contain: content;
 }
 
 @keyframes shape-change {
