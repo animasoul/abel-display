@@ -68,18 +68,16 @@ class AbelDisplayEdit extends Component {
 		const { category, tag, posts, displayStyle, imageSize } =
 			this.props.attributes;
 
-		if ( ! category || ! tag ) {
-			return (
-				<div className="wp-block-create-block-abel-display">
-					<div id="abel-wrapper">
-						<div className="shape">{ 'Loading...' }</div>
-					</div>
-				</div>
-			);
-		}
-
 		if ( ! posts || posts.length === 0 ) {
-			return __( 'No posts found.' );
+			return (
+				<Fragment>
+					<div className="abel-wrapper">
+						{ __(
+							'No posts found. Please select some categories and tags.'
+						) }
+					</div>
+				</Fragment>
+			);
 		}
 		// console.log("posts: ".post);
 		return (
@@ -89,7 +87,7 @@ class AbelDisplayEdit extends Component {
 				}
 			>
 				{ posts && posts.length > 0 ? (
-					<div id="abel-wrapper">
+					<div className="abel-wrapper">
 						{ posts.map( ( post ) => {
 							const featuredImage = getFeaturedOrFirstImage(
 								post,
@@ -117,7 +115,7 @@ class AbelDisplayEdit extends Component {
 										height: featuredImage.height,
 									} ) }
 								>
-									{ featuredImage && (
+									{ /* { featuredImage && (
 										<img
 											src={ featuredImage.url }
 											width={ featuredImage.width }
@@ -125,7 +123,7 @@ class AbelDisplayEdit extends Component {
 											alt={ featuredImage.alt }
 											loading="lazy"
 										/>
-									) }
+									) } */ }
 									{ post.title.rendered }
 								</a>
 							);
@@ -133,7 +131,9 @@ class AbelDisplayEdit extends Component {
 					</div>
 				) : (
 					<Fragment>
-						<div id="abel-wrapper">{ __( 'No posts found.' ) }</div>
+						<div className="abel-wrapper">
+							{ __( 'No posts found.' ) }
+						</div>
 					</Fragment>
 				) }
 			</div>
@@ -144,12 +144,11 @@ class AbelDisplayEdit extends Component {
 export default compose( [
 	withSelect( ( select, props ) => {
 		const { getEntityRecords } = select( 'core' );
-		const { category, tag } = props.attributes;
+		const { category, tag, numberposts } = props.attributes;
 
-		const postsQuery = {
-			per_page: -1,
-			post_status: 'publish',
-			post_type: 'post',
+		let postsQuery = {
+			per_page: numberposts,
+			status: 'publish',
 			_embed: true,
 			_fields:
 				'id,link,title.rendered,content.rendered,_links,_embedded.wp:featuredmedia',
@@ -162,15 +161,12 @@ export default compose( [
 		if ( tag && tag.length ) {
 			postsQuery.tags = tag.join();
 		}
-		// console.log( 'postquery: ' );
-		// console.log( postsQuery );
 
-		const posts = getEntityRecords( 'postType', 'post', {
-			...postsQuery,
-			_embed: 1,
-		} );
-		// console.log( 'posts' );
-		// console.log( posts );
+		// console.log( 'Posts query: ', postsQuery ); // Debug line
+
+		const posts = getEntityRecords( 'postType', 'post', postsQuery );
+
+		// console.log( 'Posts response: ', posts ); // Debug line
 
 		return {
 			posts,

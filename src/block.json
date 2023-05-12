@@ -31,6 +31,10 @@
 		"displayStyle": {
 			"type": "string",
 			"default": "default"
+		},
+		"numberposts": {
+			"type": "number",
+			"default": 5
 		}
 	}
 }

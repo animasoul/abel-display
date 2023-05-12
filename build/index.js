@@ -108,23 +108,16 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
       displayStyle,
       imageSize
     } = this.props.attributes;
-    if (!category || !tag) {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        className: "wp-block-create-block-abel-display"
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        id: "abel-wrapper"
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        className: "shape"
-      }, 'Loading...')));
-    }
     if (!posts || posts.length === 0) {
-      return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No posts found.');
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        className: "abel-wrapper"
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No posts found. Please select some categories and tags.')));
     }
     // console.log("posts: ".post);
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: 'abel-display-posts abel-display-style-' + displayStyle
     }, posts && posts.length > 0 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      id: "abel-wrapper"
+      className: "abel-wrapper"
     }, posts.map(post => {
       const featuredImage = (0,_utils_getFeaturedOrFirstImage__WEBPACK_IMPORTED_MODULE_7__.getFeaturedOrFirstImage)(post, imageSize);
       if (featuredImage && !featuredImage.alt) {
@@ -143,15 +136,9 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
           width: featuredImage.width,
           height: featuredImage.height
         })
-      }, featuredImage && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-        src: featuredImage.url,
-        width: featuredImage.width,
-        height: featuredImage.height,
-        alt: featuredImage.alt,
-        loading: "lazy"
-      }), post.title.rendered);
+      }, post.title.rendered);
     })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      id: "abel-wrapper"
+      className: "abel-wrapper"
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No posts found.'))));
   }
 }
@@ -161,12 +148,12 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
   } = select('core');
   const {
     category,
-    tag
+    tag,
+    numberposts
   } = props.attributes;
-  const postsQuery = {
-    per_page: -1,
-    post_status: 'publish',
-    post_type: 'post',
+  let postsQuery = {
+    per_page: numberposts,
+    status: 'publish',
     _embed: true,
     _fields: 'id,link,title.rendered,content.rendered,_links,_embedded.wp:featuredmedia'
   };
@@ -176,15 +163,12 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
   if (tag && tag.length) {
     postsQuery.tags = tag.join();
   }
-  // console.log( 'postquery: ' );
-  // console.log( postsQuery );
 
-  const posts = getEntityRecords('postType', 'post', {
-    ...postsQuery,
-    _embed: 1
-  });
-  // console.log( 'posts' );
-  // console.log( posts );
+  // console.log( 'Posts query: ', postsQuery ); // Debug line
+
+  const posts = getEntityRecords('postType', 'post', postsQuery);
+
+  // console.log( 'Posts response: ', posts ); // Debug line
 
   return {
     posts
@@ -286,6 +270,10 @@ const withCategoriesAndTags = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_9__.wi
     imageSize: {
       type: 'string',
       default: 'medium'
+    },
+    numberposts: {
+      type: 'number',
+      default: 5
     }
   },
   /**
@@ -325,6 +313,14 @@ const withCategoriesAndTags = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_9__.wi
       onChange: value => setAttributes({
         tag: value
       })
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.RangeControl, {
+      label: 'Number of posts to display',
+      value: props.attributes.numberposts,
+      onChange: value => setAttributes({
+        numberposts: value
+      }),
+      min: 1,
+      max: 20
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.SelectControl, {
       label: "Image Size",
       value: props.attributes.imageSize,
@@ -396,7 +392,7 @@ const AbelDisplaySave = _ref => {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `abel-display-posts abel-display-style-${displayStyle}`
   }, posts && posts.length > 0 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    id: "abel-wrapper"
+    className: "abel-wrapper"
   }, posts.map(post => {
     const featuredImage = (0,_utils_getFeaturedOrFirstImage__WEBPACK_IMPORTED_MODULE_2__.getFeaturedOrFirstImage)(post, imageSize);
     if (featuredImage && !featuredImage.alt) {
@@ -415,14 +411,10 @@ const AbelDisplaySave = _ref => {
         width: featuredImage.width,
         height: featuredImage.height
       })
-    }, featuredImage && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-      src: featuredImage.url,
-      width: featuredImage.width,
-      height: featuredImage.height,
-      alt: featuredImage.alt,
-      loading: "lazy"
-    }), post.title.rendered);
-  })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)(`No posts found.`)));
+    }, post.title.rendered);
+  })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "abel-wrapper"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No posts found.'))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AbelDisplaySave);
 
@@ -441,6 +433,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var tingle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tingle.js */ "./node_modules/tingle.js/dist/tingle.min.js");
 /* harmony import */ var tingle_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tingle_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+
 
 // Utility functions
 function getRandomInt(max) {
@@ -491,51 +486,89 @@ function applyRandomAnimation(shape, currentAnimation) {
 
 // Animation and shape change functions
 function changeColorAndShape() {
+  if (animationPaused) return;
   const shapes = document.querySelectorAll('.shape');
   const colors = ['red', 'blue', 'green', 'yellow', 'purple'];
-  shapes.forEach(shape => {
-    const color = getRandomColor(colors);
-    shape.style.backgroundColor = color;
-    shape.style.borderColor = color;
-    const randomShape = getRandomShape();
-    if (randomShape === 'circle') {
-      shape.style.borderRadius = '50%';
-    } else if (randomShape === 'square') {
-      shape.style.borderRadius = '0';
-    } else if (randomShape === 'rectangle') {
-      shape.style.borderRadius = '0';
-    } else if (randomShape === 'ellipse') {
-      shape.style.borderRadius = '50%';
+  const grid = [];
+  const gridSize = 200; // Adjust this value based on your needs
+  const container = document.querySelector('.abel-wrapper');
+  const columns = Math.floor(container.offsetWidth / gridSize);
+  const rows = Math.floor(container.offsetHeight / gridSize);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+      grid.push({
+        top: i * gridSize,
+        left: j * gridSize
+      });
     }
-    const gridSize = shape.parentElement.getBoundingClientRect();
-    const width = Math.floor(gridSize.width * (0.5 + Math.random() * 0.5));
-    const height = randomShape === 'rectangle' ? Math.floor(gridSize.height * (0.5 + Math.random() * 0.5)) : width;
+  }
+
+  // Shuffle the grid array to randomize the order of the cells
+  for (let i = grid.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [grid[i], grid[j]] = [grid[j], grid[i]]; // Swap grid[i] and grid[j]
+  }
+
+  shapes.forEach((shape, index) => {
+    const initialColor = getRandomColor(colors);
+    const initialColor2 = getRandomColor(colors);
+    shape.style.backgroundImage = `radial-gradient(circle at center, ${initialColor}, ${initialColor2})`;
+    shape.style.borderColor = initialColor;
+    const initialShape = getRandomShape();
+    shape.style.borderRadius = ['circle', 'ellipse'].includes(initialShape) ? '50%' : '0';
+    const gridBox = shape.parentElement.getBoundingClientRect();
+    const width = Math.floor(gridBox.width * (0.15 + Math.random() * 0.15)); // Limit shape size
+    const height = initialShape === 'rectangle' ? Math.floor(gridBox.height * (0.15 + Math.random() * 0.15)) : width;
     shape.style.width = `${width}px`;
     shape.style.height = `${height}px`;
-    const animation = applyRandomAnimation(shape);
-    shape.removeEventListener('mouseover', onMouseOver);
-    shape.removeEventListener('mouseout', onMouseOut);
-    shape.addEventListener('mouseover', onMouseOver);
-    shape.addEventListener('mouseout', onMouseOut);
-    shape.dataset.animation = animation;
+    const position = grid[index % grid.length];
+    shape.style.top = `${position.top}px`;
+    shape.style.left = `${position.left}px`;
+    const positionTransition = 'top 1s ease-in-out 0s, left 1s ease-in-out 0s';
+    shape.style.transition = positionTransition;
+    shape.addEventListener('transitionend', function (e) {
+      if (e.propertyName !== 'top') return;
+      setTimeout(() => {
+        const positionTransition = 'top 1s ease-in-out 0s, left 1s ease-in-out 0s';
+        shape.style.transition = positionTransition;
+        const animation = applyRandomAnimation(shape);
+        shape.removeEventListener('mouseover', onMouseOver);
+        shape.removeEventListener('mouseout', onMouseOut);
+        shape.addEventListener('mouseover', onMouseOver);
+        shape.addEventListener('mouseout', onMouseOut);
+        shape.dataset.animation = animation;
+      }, 1000);
+      setTimeout(() => {
+        const colorTransition = `background-color 1s ease-in-out ${index * 100}ms, border-color 1s ease-in-out ${index * 200}ms`;
+        const shapeTransition = `border-radius 1s ease-in-out ${index * 200}ms`;
+        shape.style.transition = `${colorTransition}, ${shapeTransition}`;
+        const color = getRandomColor(colors);
+        shape.style.backgroundColor = color;
+        shape.style.borderColor = color;
+        const randomShape = getRandomShape();
+        shape.style.borderRadius = ['circle', 'ellipse'].includes(randomShape) ? '50%' : '0';
+      }, 1000 + index * 100); // Adding some delay for each shape
+    });
   });
 }
+
 function resizeElements() {
   const shapes = document.querySelectorAll('.shape');
-  const numberOfRows = Math.ceil(Math.sqrt(shapes.length));
+  const numberOfRows = Math.ceil(Math.sqrt(shapes.length)) * 2; // Increase grid size
+
   shapes.forEach((shape, index) => {
     shape.style.gridColumn = `${index % numberOfRows + 1} / span 1`;
     shape.style.gridRow = `${Math.floor(index / numberOfRows) + 1} / span 1`;
   });
 }
+let animationPaused = false;
 let intervalId;
-// Event listeners
 function onMouseOver() {
-  clearInterval(intervalId);
+  animationPaused = true;
   this.style.animationPlayState = 'paused';
 }
 function onMouseOut() {
-  intervalId = setInterval(changeColorAndShape, 3000);
+  animationPaused = false;
   this.style.animationPlayState = 'running';
 }
 
@@ -563,8 +596,8 @@ function expandShape(shape) {
   // Set the modal content
   modal.setContent(`
 	  <h2>${post.title}</h2>
-	  <img src="${post.img_src}" alt="${post.alt}" width="${post.width}" height="${post.height}">
-	  <a href="${post.link}">Read more</a>
+	  <img src="${post.img_src}" alt="${post.alt}" width="${post.width}" height="${post.height}" loading="lazy" />
+	  <a href="${post.link}">${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Read more')}</a>
 	`);
 
   // Open the modal
@@ -572,10 +605,13 @@ function expandShape(shape) {
   clearInterval(intervalId);
 }
 function startAnimation() {
-  const wrapper = document.getElementById('abel-wrapper');
+  const wrapper = document.getElementsByClassName('abel-wrapper');
   if (wrapper !== null) {
     try {
       changeColorAndShape();
+      intervalId = setInterval(() => {
+        if (!animationPaused) changeColorAndShape();
+      }, 5000);
       resizeElements();
       const shapeElements = document.querySelectorAll('.shape');
       shapeElements.forEach(shape => {
@@ -619,14 +655,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getFeaturedOrFirstImage": () => (/* binding */ getFeaturedOrFirstImage)
 /* harmony export */ });
 const getFeaturedOrFirstImage = (post, imageSize) => {
-  if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].media_details && post._embedded['wp:featuredmedia'][0].media_details.sizes[imageSize]) {
-    const image = post._embedded['wp:featuredmedia'][0].media_details.sizes[imageSize];
-    return {
-      url: image.source_url,
-      width: image.width,
-      height: image.height,
-      alt: post._embedded['wp:featuredmedia'][0].alt_text
-    };
+  if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].media_details && post._embedded['wp:featuredmedia'][0].media_details.sizes) {
+    const sizes = post._embedded['wp:featuredmedia'][0].media_details.sizes;
+    let image = sizes[imageSize];
+
+    // If the desired image size doesn't exist, fall back to 'full'.
+    if (!image && sizes['full']) {
+      image = sizes['full'];
+    }
+
+    // If 'full' size doesn't exist, fall back to the first available size.
+    if (!image) {
+      const availableSizes = Object.values(sizes);
+      image = availableSizes[0];
+    }
+    if (image) {
+      return {
+        url: image.source_url,
+        width: image.width,
+        height: image.height,
+        alt: post._embedded['wp:featuredmedia'][0].alt_text
+      };
+    }
   }
   const content = post.content ? post.content.rendered : null;
   const imgRegex = /<img[^>]+src="(http:\/\/[^">]+|https:\/\/[^">]+)"/g;
@@ -795,7 +845,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"create-block/abel-display","version":"0.1.0","title":"Abel Display","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","supports":{"html":false},"textdomain":"abel-display","script":"file:./utils/animate.js","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"category":{"type":"array","default":[]},"tag":{"type":"array","default":[]},"posts":{"type":"array","default":[]},"displayStyle":{"type":"string","default":"default"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"create-block/abel-display","version":"0.1.0","title":"Abel Display","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","supports":{"html":false},"textdomain":"abel-display","script":"file:./utils/animate.js","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"category":{"type":"array","default":[]},"tag":{"type":"array","default":[]},"posts":{"type":"array","default":[]},"displayStyle":{"type":"string","default":"default"},"numberposts":{"type":"number","default":5}}}');
 
 /***/ })
 

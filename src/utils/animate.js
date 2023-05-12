@@ -1,4 +1,5 @@
 import tingle from 'tingle.js';
+import { __ } from '@wordpress/i18n';
 // Utility functions
 function getRandomInt( max ) {
 	return Math.floor( Math.random() * max );
@@ -67,47 +68,103 @@ function applyRandomAnimation( shape, currentAnimation ) {
 
 // Animation and shape change functions
 function changeColorAndShape() {
+	if ( animationPaused ) return;
+
 	const shapes = document.querySelectorAll( '.shape' );
 	const colors = [ 'red', 'blue', 'green', 'yellow', 'purple' ];
+	const grid = [];
+	const gridSize = 200; // Adjust this value based on your needs
+	const container = document.querySelector( '.abel-wrapper' );
+	const columns = Math.floor( container.offsetWidth / gridSize );
+	const rows = Math.floor( container.offsetHeight / gridSize );
 
-	shapes.forEach( ( shape ) => {
-		const color = getRandomColor( colors );
-		shape.style.backgroundColor = color;
-		shape.style.borderColor = color;
-
-		const randomShape = getRandomShape();
-		if ( randomShape === 'circle' ) {
-			shape.style.borderRadius = '50%';
-		} else if ( randomShape === 'square' ) {
-			shape.style.borderRadius = '0';
-		} else if ( randomShape === 'rectangle' ) {
-			shape.style.borderRadius = '0';
-		} else if ( randomShape === 'ellipse' ) {
-			shape.style.borderRadius = '50%';
+	for ( let i = 0; i < rows; i++ ) {
+		for ( let j = 0; j < columns; j++ ) {
+			grid.push( { top: i * gridSize, left: j * gridSize } );
 		}
+	}
 
-		const gridSize = shape.parentElement.getBoundingClientRect();
+	// Shuffle the grid array to randomize the order of the cells
+	for ( let i = grid.length - 1; i > 0; i-- ) {
+		const j = Math.floor( Math.random() * ( i + 1 ) );
+		[ grid[ i ], grid[ j ] ] = [ grid[ j ], grid[ i ] ]; // Swap grid[i] and grid[j]
+	}
+
+	shapes.forEach( ( shape, index ) => {
+		const initialColor = getRandomColor( colors );
+		const initialColor2 = getRandomColor( colors );
+		shape.style.backgroundImage = `radial-gradient(circle at center, ${ initialColor }, ${ initialColor2 })`;
+		shape.style.borderColor = initialColor;
+
+		const initialShape = getRandomShape();
+		shape.style.borderRadius = [ 'circle', 'ellipse' ].includes(
+			initialShape
+		)
+			? '50%'
+			: '0';
+
+		const gridBox = shape.parentElement.getBoundingClientRect();
 		const width = Math.floor(
-			gridSize.width * ( 0.5 + Math.random() * 0.5 )
-		);
+			gridBox.width * ( 0.15 + Math.random() * 0.15 )
+		); // Limit shape size
 		const height =
-			randomShape === 'rectangle'
-				? Math.floor( gridSize.height * ( 0.5 + Math.random() * 0.5 ) )
+			initialShape === 'rectangle'
+				? Math.floor( gridBox.height * ( 0.15 + Math.random() * 0.15 ) )
 				: width;
 		shape.style.width = `${ width }px`;
 		shape.style.height = `${ height }px`;
-		const animation = applyRandomAnimation( shape );
-		shape.removeEventListener( 'mouseover', onMouseOver );
-		shape.removeEventListener( 'mouseout', onMouseOut );
-		shape.addEventListener( 'mouseover', onMouseOver );
-		shape.addEventListener( 'mouseout', onMouseOut );
-		shape.dataset.animation = animation;
+		const position = grid[ index % grid.length ];
+		shape.style.top = `${ position.top }px`;
+		shape.style.left = `${ position.left }px`;
+
+		const positionTransition =
+			'top 1s ease-in-out 0s, left 1s ease-in-out 0s';
+		shape.style.transition = positionTransition;
+
+		shape.addEventListener( 'transitionend', function ( e ) {
+			if ( e.propertyName !== 'top' ) return;
+
+			setTimeout( () => {
+				const positionTransition =
+					'top 1s ease-in-out 0s, left 1s ease-in-out 0s';
+				shape.style.transition = positionTransition;
+
+				const animation = applyRandomAnimation( shape );
+				shape.removeEventListener( 'mouseover', onMouseOver );
+				shape.removeEventListener( 'mouseout', onMouseOut );
+				shape.addEventListener( 'mouseover', onMouseOver );
+				shape.addEventListener( 'mouseout', onMouseOut );
+				shape.dataset.animation = animation;
+			}, 1000 );
+
+			setTimeout( () => {
+				const colorTransition = `background-color 1s ease-in-out ${
+					index * 100
+				}ms, border-color 1s ease-in-out ${ index * 200 }ms`;
+				const shapeTransition = `border-radius 1s ease-in-out ${
+					index * 200
+				}ms`;
+
+				shape.style.transition = `${ colorTransition }, ${ shapeTransition }`;
+
+				const color = getRandomColor( colors );
+				shape.style.backgroundColor = color;
+				shape.style.borderColor = color;
+
+				const randomShape = getRandomShape();
+				shape.style.borderRadius = [ 'circle', 'ellipse' ].includes(
+					randomShape
+				)
+					? '50%'
+					: '0';
+			}, 1000 + index * 100 ); // Adding some delay for each shape
+		} );
 	} );
 }
 
 function resizeElements() {
 	const shapes = document.querySelectorAll( '.shape' );
-	const numberOfRows = Math.ceil( Math.sqrt( shapes.length ) );
+	const numberOfRows = Math.ceil( Math.sqrt( shapes.length ) ) * 2; // Increase grid size
 
 	shapes.forEach( ( shape, index ) => {
 		shape.style.gridColumn = `${ ( index % numberOfRows ) + 1 } / span 1`;
@@ -116,15 +173,17 @@ function resizeElements() {
 		} / span 1`;
 	} );
 }
+
+let animationPaused = false;
 let intervalId;
-// Event listeners
+
 function onMouseOver() {
-	clearInterval( intervalId );
+	animationPaused = true;
 	this.style.animationPlayState = 'paused';
 }
 
 function onMouseOut() {
-	intervalId = setInterval( changeColorAndShape, 3000 );
+	animationPaused = false;
 	this.style.animationPlayState = 'running';
 }
 
@@ -153,8 +212,10 @@ function expandShape( shape ) {
 	// Set the modal content
 	modal.setContent( `
 	  <h2>${ post.title }</h2>
-	  <img src="${ post.img_src }" alt="${ post.alt }" width="${ post.width }" height="${ post.height }">
-	  <a href="${ post.link }">Read more</a>
+	  <img src="${ post.img_src }" alt="${ post.alt }" width="${
+		post.width
+	}" height="${ post.height }" loading="lazy" />
+	  <a href="${ post.link }">${ __( 'Read more' ) }</a>
 	` );
 
 	// Open the modal
@@ -163,11 +224,15 @@ function expandShape( shape ) {
 	clearInterval( intervalId );
 }
 function startAnimation() {
-	const wrapper = document.getElementById( 'abel-wrapper' );
+	const wrapper = document.getElementsByClassName( 'abel-wrapper' );
 
 	if ( wrapper !== null ) {
 		try {
 			changeColorAndShape();
+
+			intervalId = setInterval( () => {
+				if ( ! animationPaused ) changeColorAndShape();
+			}, 5000 );
 			resizeElements();
 
 			const shapeElements = document.querySelectorAll( '.shape' );

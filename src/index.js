@@ -13,7 +13,7 @@ import useImageSizes from './utils/useImageSizes';
  * WordPress dependencies
  */
 import { InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl } from '@wordpress/components';
+import { PanelBody, SelectControl, RangeControl } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 
 /**
@@ -65,6 +65,10 @@ registerBlockType( metadata.name, {
 			type: 'string',
 			default: 'medium',
 		},
+		numberposts: {
+			type: 'number',
+			default: 5,
+		},
 	},
 
 	/**
@@ -107,7 +111,15 @@ registerBlockType( metadata.name, {
 								setAttributes( { tag: value } )
 							}
 						/>
-
+						<RangeControl
+							label={ 'Number of posts to display' }
+							value={ props.attributes.numberposts }
+							onChange={ ( value ) =>
+								setAttributes( { numberposts: value } )
+							}
+							min={ 1 }
+							max={ 20 }
+						/>
 						<SelectControl
 							label="Image Size"
 							value={ props.attributes.imageSize }

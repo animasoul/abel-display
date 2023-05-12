@@ -14,7 +14,7 @@ const AbelDisplaySave = ( { attributes } ) => {
 			className={ `abel-display-posts abel-display-style-${ displayStyle }` }
 		>
 			{ posts && posts.length > 0 ? (
-				<div id="abel-wrapper">
+				<div className="abel-wrapper">
 					{ posts.map( ( post ) => {
 						const featuredImage = getFeaturedOrFirstImage(
 							post,
@@ -40,7 +40,7 @@ const AbelDisplaySave = ( { attributes } ) => {
 									height: featuredImage.height,
 								} ) }
 							>
-								{ featuredImage && (
+								{ /* { featuredImage && (
 									<img
 										src={ featuredImage.url }
 										width={ featuredImage.width }
@@ -48,14 +48,18 @@ const AbelDisplaySave = ( { attributes } ) => {
 										alt={ featuredImage.alt }
 										loading="lazy"
 									/>
-								) }
+								) } */ }
 								{ post.title.rendered }
 							</a>
 						);
 					} ) }
 				</div>
 			) : (
-				<Fragment>{ __( `No posts found.` ) }</Fragment>
+				<Fragment>
+					<div className="abel-wrapper">
+						{ __( 'No posts found.' ) }
+					</div>
+				</Fragment>
 			) }
 		</div>
 	);

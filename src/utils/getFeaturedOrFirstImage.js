@@ -3,20 +3,31 @@ export const getFeaturedOrFirstImage = ( post, imageSize ) => {
 		post._embedded &&
 		post._embedded[ 'wp:featuredmedia' ] &&
 		post._embedded[ 'wp:featuredmedia' ][ 0 ].media_details &&
-		post._embedded[ 'wp:featuredmedia' ][ 0 ].media_details.sizes[
-			imageSize
-		]
+		post._embedded[ 'wp:featuredmedia' ][ 0 ].media_details.sizes
 	) {
-		const image =
-			post._embedded[ 'wp:featuredmedia' ][ 0 ].media_details.sizes[
-				imageSize
-			];
-		return {
-			url: image.source_url,
-			width: image.width,
-			height: image.height,
-			alt: post._embedded[ 'wp:featuredmedia' ][ 0 ].alt_text,
-		};
+		const sizes =
+			post._embedded[ 'wp:featuredmedia' ][ 0 ].media_details.sizes;
+		let image = sizes[ imageSize ];
+
+		// If the desired image size doesn't exist, fall back to 'full'.
+		if ( ! image && sizes[ 'full' ] ) {
+			image = sizes[ 'full' ];
+		}
+
+		// If 'full' size doesn't exist, fall back to the first available size.
+		if ( ! image ) {
+			const availableSizes = Object.values( sizes );
+			image = availableSizes[ 0 ];
+		}
+
+		if ( image ) {
+			return {
+				url: image.source_url,
+				width: image.width,
+				height: image.height,
+				alt: post._embedded[ 'wp:featuredmedia' ][ 0 ].alt_text,
+			};
+		}
 	}
 
 	const content = post.content ? post.content.rendered : null;
