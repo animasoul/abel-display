@@ -60,16 +60,46 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			} );
 
 			// Set the modal content
-			modal.setContent( `
-				<h2>${ shape.dataset.title }</h2>
-				<img src="${ shape.dataset.img_src }" alt="${ shape.dataset.alt }" width="${
-				shape.dataset.width
-			}" height="${ shape.dataset.height }" loading="lazy" />
-				<a href="${ shape.dataset.link }">${ __( 'Read more' ) }</a>
-			` );
+			// modal.setContent( `
+			// 	<h2>${ shape.dataset.title }</h2>
+			// 	<img src="${ shape.dataset.img_src }" alt="${ shape.dataset.alt }" width="${
+			// 	shape.dataset.width
+			// }" height="${ shape.dataset.height }" loading="lazy" />
+			// 	<a href="${ shape.dataset.link }">${ __( 'Read more' ) }</a>
+			// ` );
 
 			// Open the modal when the shape is clicked
-			shape.addEventListener( 'click', () => {
+			shape.addEventListener( 'click', ( event ) => {
+				event.preventDefault(); // Prevent the link from being followed
+
+				// Parse the data-post attribute into a JavaScript object
+				const shapeData = JSON.parse(
+					event.currentTarget.dataset.post
+				);
+
+				// Create a new tingle modal for each shape
+				const modal = new tingle.modal( {
+					footer: false,
+					stickyFooter: false,
+					closeMethods: [ 'overlay', 'button', 'escape' ],
+					closeLabel: 'Close',
+					cssClass: [ 'custom-class-1', 'custom-class-2' ],
+					onOpen: () => {},
+					onClose: () => {
+						event.currentTarget.style.animation = '';
+					},
+				} );
+
+				// Set the modal content using the parsed data
+				modal.setContent( `
+					<h2>${ shapeData.title }</h2>
+					<img src="${ shapeData.img_src }" alt="${ shapeData.alt }" width="${
+					shapeData.width
+				}" height="${ shapeData.height }" loading="lazy" />
+					<a href="${ shapeData.link }">${ __( 'Read more' ) }</a>
+				` );
+
+				// Open the modal
 				modal.open();
 			} );
 
