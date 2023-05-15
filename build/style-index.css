@@ -8,7 +8,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 .abel-display-posts {
-  height: 100vh;
+  height: 70vh;
   width: 100vw;
   display: grid;
   place-items: center;
@@ -18,7 +18,7 @@
 }
 .abel-display-posts .abel-wrapper {
   aspect-ratio: 1.618;
-  width: 90vmin;
+  width: 100%;
   position: relative;
 }
 .abel-display-posts .abel-wrapper > .shape {
@@ -30,6 +30,12 @@
   transition-duration: 750ms;
   transition-timing-function: ease-in-out;
   z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.abel-display-posts .abel-wrapper > .shape a {
+  text-align: center;
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(1) {
   background-color: rgb(176, 190, 197);

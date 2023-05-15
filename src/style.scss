@@ -194,7 +194,7 @@ $roundnessDefault: (
 	),
 );
 .abel-display-posts {
-	height: 100vh;
+	height: 70vh;
 	width: 100vw;
 	display: grid;
 	place-items: center;
@@ -204,7 +204,7 @@ $roundnessDefault: (
 
 	.abel-wrapper {
 		aspect-ratio: 1.618;
-		width: 90vmin;
+		width: 100%;
 		position: relative;
 
 		> .shape {
@@ -216,6 +216,12 @@ $roundnessDefault: (
 			transition-duration: 750ms;
 			transition-timing-function: ease-in-out;
 			z-index: 2;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			a {
+				text-align: center;
+			}
 
 			@for $i from 1 through length($colors) {
 				&:nth-child(#{$i}) {
