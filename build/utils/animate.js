@@ -152,62 +152,43 @@ let startAnimation = wrappers => {
     });
   }, 3000);
 };
+function openModal(shape) {
+  if (!shape.dataset) return;
+  const post = JSON.parse(shape.dataset.post);
+
+  // Create a new tingle modal
+  const modal = new (tingle_js__WEBPACK_IMPORTED_MODULE_0___default().modal)({
+    footer: false,
+    stickyFooter: false,
+    closeMethods: ['overlay', 'button', 'escape'],
+    closeLabel: 'Close',
+    cssClass: ['custom-class-1', 'custom-class-2'],
+    onOpen: () => {},
+    onClose: () => {
+      shape.style.animation = '';
+    }
+  });
+
+  // Set the modal content
+  modal.setContent(`
+	  <h2>${post.title}</h2>
+	  <img src="${post.img_src}" alt="${post.alt}" width="${post.width}" height="${post.height}" loading="lazy" />
+	  <a href="${post.link}">${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Read more')}</a>
+	`);
+
+  // Open the modal
+  modal.open();
+}
 document.addEventListener('DOMContentLoaded', () => {
   let wrappers = document.querySelectorAll('.abel-wrapper');
-  wrappers.forEach((wrapper, i) => {
+  wrappers.forEach(wrapper => {
     const shapes = wrapper.querySelectorAll('.shape');
-    shapes.forEach((shape, j) => {
-      // Create a new tingle modal for each shape
-      const modal = new (tingle_js__WEBPACK_IMPORTED_MODULE_0___default().modal)({
-        footer: false,
-        stickyFooter: false,
-        closeMethods: ['overlay', 'button', 'escape'],
-        closeLabel: 'Close',
-        cssClass: ['custom-class-1', 'custom-class-2'],
-        onOpen: () => {},
-        onClose: () => {
-          shape.style.animation = '';
-        }
-      });
-
-      // Set the modal content
-      // modal.setContent( `
-      // 	<h2>${ shape.dataset.title }</h2>
-      // 	<img src="${ shape.dataset.img_src }" alt="${ shape.dataset.alt }" width="${
-      // 	shape.dataset.width
-      // }" height="${ shape.dataset.height }" loading="lazy" />
-      // 	<a href="${ shape.dataset.link }">${ __( 'Read more' ) }</a>
-      // ` );
-
+    shapes.forEach(shape => {
       // Open the modal when the shape is clicked
-      shape.addEventListener('click', event => {
-        event.preventDefault(); // Prevent the link from being followed
+      shape.addEventListener('click', e => {
+        e.preventDefault(); // Prevent the link from being followed
 
-        // Parse the data-post attribute into a JavaScript object
-        const shapeData = JSON.parse(event.currentTarget.dataset.post);
-
-        // Create a new tingle modal for each shape
-        const modal = new (tingle_js__WEBPACK_IMPORTED_MODULE_0___default().modal)({
-          footer: false,
-          stickyFooter: false,
-          closeMethods: ['overlay', 'button', 'escape'],
-          closeLabel: 'Close',
-          cssClass: ['custom-class-1', 'custom-class-2'],
-          onOpen: () => {},
-          onClose: () => {
-            event.currentTarget.style.animation = '';
-          }
-        });
-
-        // Set the modal content using the parsed data
-        modal.setContent(`
-					<h2>${shapeData.title}</h2>
-					<img src="${shapeData.img_src}" alt="${shapeData.alt}" width="${shapeData.width}" height="${shapeData.height}" loading="lazy" />
-					<a href="${shapeData.link}">${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Read more')}</a>
-				`);
-
-        // Open the modal
-        modal.open();
+        openModal(shape);
       });
 
       // Pause the animation when the shape is hovered
