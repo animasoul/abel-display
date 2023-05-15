@@ -4,7 +4,7 @@ import { Fragment, Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
-import abelDisplayAnimate from './utils/animate';
+//import abelDisplayAnimate from './utils/animate';
 import { getFeaturedOrFirstImage } from './utils/getFeaturedOrFirstImage';
 
 class AbelDisplayEdit extends Component {
@@ -59,9 +59,9 @@ class AbelDisplayEdit extends Component {
 			setAttributes( { posts } );
 		}
 
-		if ( posts ) {
-			abelDisplayAnimate();
-		}
+		// if ( posts ) {
+		// 	abelDisplayAnimate();
+		// }
 	}
 
 	render() {

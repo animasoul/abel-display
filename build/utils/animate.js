@@ -102,9 +102,6 @@ var __webpack_exports__ = {};
   !*** ./src/utils/animate.js ***!
   \******************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ abelDisplayAnimate)
-/* harmony export */ });
 /* harmony import */ var tingle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tingle.js */ "./node_modules/tingle.js/dist/tingle.min.js");
 /* harmony import */ var tingle_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tingle_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
@@ -139,10 +136,12 @@ const combinations = [{
   roundness: 3
 }];
 let prev = 0;
-
+let intervalId;
 // Start the animation
-let startAnimation = wrappers => {
-  setInterval(() => {
+const startAnimation = wrappers => {
+  // If the interval is already set, do nothing
+  if (intervalId !== undefined) return;
+  intervalId = setInterval(() => {
     wrappers.forEach(wrapper => {
       const index = uniqueRand(0, combinations.length - 1, prev),
         combination = combinations[index];
@@ -152,64 +151,93 @@ let startAnimation = wrappers => {
     });
   }, 3000);
 };
+let activeShape = null; // Add this global variable
+let modal;
 function openModal(shape) {
   if (!shape.dataset) return;
   const post = JSON.parse(shape.dataset.post);
 
+  // Update the activeShape reference
+  activeShape = shape;
+  activeShape.style.animation = 'none';
+
   // Create a new tingle modal
-  const modal = new (tingle_js__WEBPACK_IMPORTED_MODULE_0___default().modal)({
-    footer: false,
-    stickyFooter: false,
-    closeMethods: ['overlay', 'button', 'escape'],
-    closeLabel: 'Close',
-    cssClass: ['custom-class-1', 'custom-class-2'],
-    onOpen: () => {},
-    onClose: () => {
-      shape.style.animation = '';
-    }
-  });
+  if (!modal) {
+    modal = new (tingle_js__WEBPACK_IMPORTED_MODULE_0___default().modal)({
+      footer: false,
+      stickyFooter: false,
+      closeMethods: ['overlay', 'button', 'escape'],
+      closeLabel: 'Close',
+      cssClass: ['custom-class-1', 'custom-class-2'],
+      onOpen: () => {},
+      onClose: () => {
+        if (activeShape) {
+          activeShape.style.animationPlayState = 'running';
+          activeShape = null; // Clear the reference
+        }
+      }
+    });
+  }
 
   // Set the modal content
   modal.setContent(`
-	  <h2>${post.title}</h2>
-	  <img src="${post.img_src}" alt="${post.alt}" width="${post.width}" height="${post.height}" loading="lazy" />
-	  <a href="${post.link}">${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Read more')}</a>
-	`);
+        <h2>${post.title}</h2>
+        <img src="${post.img_src}" alt="${post.alt}" width="${post.width}" height="${post.height}" loading="lazy" />
+        <a href="${post.link}">${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Read more')}</a>
+    `);
 
   // Open the modal
   modal.open();
 }
-document.addEventListener('DOMContentLoaded', () => {
-  let wrappers = document.querySelectorAll('.abel-wrapper');
-  wrappers.forEach(wrapper => {
-    const shapes = wrapper.querySelectorAll('.shape');
-    shapes.forEach(shape => {
-      // Open the modal when the shape is clicked
-      shape.addEventListener('click', e => {
-        e.preventDefault(); // Prevent the link from being followed
+function attachEventsToShapes(wrapper) {
+  const shapes = wrapper.querySelectorAll('.shape');
+  shapes.forEach(shape => {
+    // Open the modal when the shape is clicked
+    shape.addEventListener('click', e => {
+      e.preventDefault(); // Prevent the link from being followed
+      openModal(shape);
+    });
 
-        openModal(shape);
-      });
+    // Pause the animation when the shape is hovered
+    shape.addEventListener('mouseover', () => {
+      shape.style.animationPlayState = 'paused';
+    });
 
-      // Pause the animation when the shape is hovered
-      shape.addEventListener('mouseover', () => {
-        shape.style.animationPlayState = 'paused';
-      });
-
-      // Resume the animation when the mouse leaves the shape
-      shape.addEventListener('mouseout', () => {
-        shape.style.animationPlayState = 'running';
-      });
+    // Resume the animation when the mouse leaves the shape
+    shape.addEventListener('mouseout', () => {
+      shape.style.animationPlayState = 'running';
     });
   });
-  if (!document.body.classList.contains('wp-admin')) {
-    startAnimation(wrappers);
-  }
-});
-function abelDisplayAnimate() {
-  let wrappers = document.querySelectorAll('.abel-wrapper');
+}
+
+// Define a function to start the animation on your wrappers
+function startAnimationOnWrappers(wrappers) {
   startAnimation(wrappers);
 }
+
+// Create a new MutationObserver instance
+const observer = new MutationObserver((mutationsList, observer) => {
+  // Look through all mutations that just occured
+  for (let mutation of mutationsList) {
+    // If the addedNodes property has one or more nodes
+    if (mutation.addedNodes.length) {
+      const newWrappers = document.querySelectorAll('.abel-wrapper'); // Change variable name here
+
+      newWrappers.forEach(wrapper => {
+        attachEventsToShapes(wrapper);
+        startAnimationOnWrappers(newWrappers); // And here
+      });
+    }
+  }
+});
+
+document.addEventListener('DOMContentLoaded', event => {
+  // Start observing the document with the configured parameters
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+});
 })();
 
 /******/ })()
