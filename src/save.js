@@ -14,7 +14,11 @@ const AbelDisplaySave = ( { attributes } ) => {
 			className={ `abel-display-posts abel-display-style-${ displayStyle }` }
 		>
 			{ posts && posts.length > 0 ? (
-				<div className="abel-wrapper">
+				<div
+					className="abel-wrapper"
+					data-configuration="1"
+					data-roundness="1"
+				>
 					{ posts.map( ( post ) => {
 						const featuredImage = getFeaturedOrFirstImage(
 							post,
