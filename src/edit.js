@@ -152,11 +152,7 @@ export default compose( [
 			postsQuery.tags = tag.join();
 		}
 
-		// console.log( 'Posts query: ', postsQuery ); // Debug line
-
 		const posts = getEntityRecords( 'postType', 'post', postsQuery );
-
-		// console.log( 'Posts response: ', posts ); // Debug line
 
 		return {
 			posts,
