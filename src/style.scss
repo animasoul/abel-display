@@ -247,7 +247,6 @@ $roundnessDefault: (
 					@each $shape, $styles in $shapes {
 						&:nth-child(#{$shape}) {
 							@each $property, $value in $styles {
-								/* stylelint-disable-next-line CssSyntaxError */
 								#{$property}: $value;
 							}
 						}
