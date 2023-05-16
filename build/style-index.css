@@ -8,12 +8,12 @@
  * Replace them with your own styles or remove the file completely.
  */
 .abel-display-posts {
-  height: 70vh;
-  width: 100vw;
+  height: auto;
   display: grid;
   place-items: center;
   background-color: black;
-  margin: 0px;
+  margin: 0;
+  border-radius: 10px;
   overflow: hidden;
 }
 .abel-display-posts .abel-wrapper {
@@ -66,129 +66,213 @@
   z-index: 2;
 }
 .abel-display-posts .abel-wrapper[data-configuration="1"] > .shape:nth-child(1) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 20%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="1"] > .shape:nth-child(2) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 20%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 30%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="1"] > .shape:nth-child(3) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 100%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 50%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="1"] > .shape:nth-child(4) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 30%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="1"] > .shape:nth-child(5) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 30%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 20%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="1"] > .shape:nth-child(6) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 70%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 30%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="1"] > .shape:nth-child(7) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 85%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 75%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 25%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 15%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="2"] > .shape:nth-child(1) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 25%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 20%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 80%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 15%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="2"] > .shape:nth-child(2) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 40%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 20%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 10%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="2"] > .shape:nth-child(3) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 100%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 25%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="2"] > .shape:nth-child(4) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 50%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 10%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="2"] > .shape:nth-child(5) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 10%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 70%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 15%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="2"] > .shape:nth-child(6) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 75%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 10%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 80%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 15%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="2"] > .shape:nth-child(7) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 90%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 40%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 60%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 10%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="3"] > .shape:nth-child(1) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 16.5%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 32%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 20%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="3"] > .shape:nth-child(2) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 20%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 2.7%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 55%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 34%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="3"] > .shape:nth-child(3) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 38%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 100%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 62%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="3"] > .shape:nth-child(4) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 0%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 47.3%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 55%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 34%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="3"] > .shape:nth-child(5) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 34%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 56.4%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 32%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 20%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="3"] > .shape:nth-child(6) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 66%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 45%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 55%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 34%;
 }
 .abel-display-posts .abel-wrapper[data-configuration="3"] > .shape:nth-child(7) {
+  /* stylelint-disable-next-line CssSyntaxError */
   left: 80%;
+  /* stylelint-disable-next-line CssSyntaxError */
   top: 68%;
+  /* stylelint-disable-next-line CssSyntaxError */
   height: 32%;
+  /* stylelint-disable-next-line CssSyntaxError */
   width: 20%;
 }
 .abel-display-posts .abel-wrapper[data-roundness="1"] > .shape {

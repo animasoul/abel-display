@@ -41,7 +41,6 @@ const startAnimation = ( wrappers ) => {
 	}, 3000 );
 };
 
-let activeShape = null; // Add this global variable
 let modal;
 
 function openModal( shape ) {
@@ -49,25 +48,16 @@ function openModal( shape ) {
 
 	const post = JSON.parse( shape.dataset.post );
 
-	// Update the activeShape reference
-	activeShape = shape;
-	activeShape.style.animation = 'none';
-
 	// Create a new tingle modal
 	if ( ! modal ) {
 		modal = new tingle.modal( {
 			footer: false,
 			stickyFooter: false,
 			closeMethods: [ 'overlay', 'button', 'escape' ],
-			closeLabel: 'Close',
-			cssClass: [ 'custom-class-1', 'custom-class-2' ],
+			closeLabel: __( 'Close' ),
+			cssClass: [],
 			onOpen: () => {},
-			onClose: () => {
-				if ( activeShape ) {
-					activeShape.style.animationPlayState = 'running';
-					activeShape = null; // Clear the reference
-				}
-			},
+			onClose: () => {},
 		} );
 	}
 
@@ -92,16 +82,6 @@ function attachEventsToShapes( wrapper ) {
 		shape.addEventListener( 'click', ( e ) => {
 			e.preventDefault(); // Prevent the link from being followed
 			openModal( shape );
-		} );
-
-		// Pause the animation when the shape is hovered
-		shape.addEventListener( 'mouseover', () => {
-			shape.style.animationPlayState = 'paused';
-		} );
-
-		// Resume the animation when the mouse leaves the shape
-		shape.addEventListener( 'mouseout', () => {
-			shape.style.animationPlayState = 'running';
 		} );
 	} );
 }

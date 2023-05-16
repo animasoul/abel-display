@@ -194,12 +194,12 @@ $roundnessDefault: (
 	),
 );
 .abel-display-posts {
-	height: 70vh;
-	width: 100vw;
+	height: auto;
 	display: grid;
 	place-items: center;
 	background-color: black;
-	margin: 0px;
+	margin: 0;
+	border-radius: 10px;
 	overflow: hidden;
 
 	.abel-wrapper {
@@ -237,6 +237,7 @@ $roundnessDefault: (
 					@each $shape, $styles in $shapes {
 						&:nth-child(#{$shape}) {
 							@each $property, $value in $styles {
+								/* stylelint-disable-next-line CssSyntaxError */
 								#{$property}: $value;
 							}
 						}
