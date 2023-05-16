@@ -21,6 +21,16 @@
   width: 100%;
   position: relative;
 }
+.abel-display-posts .abel-wrapper dialog {
+  transform: scale(0);
+  transition: transform 0.3s ease-out;
+  opacity: 0;
+  display: block;
+}
+.abel-display-posts .abel-wrapper dialog[open] {
+  transform: scale(1);
+  opacity: 1;
+}
 .abel-display-posts .abel-wrapper > .shape {
   height: 30%;
   width: 30%;

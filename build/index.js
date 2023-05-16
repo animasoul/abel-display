@@ -32,7 +32,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//import abelDisplayAnimate from './utils/animate';
 
 class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor() {
@@ -63,9 +62,6 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
       tags,
       setAttributes
     } = this.props;
-    // console.log("this.props: ");
-    // console.log(this.props);
-
     if (!categories) {
       _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default()({
         path: '/wp/v2/categories?_fields=id,name'
@@ -95,16 +91,9 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
         posts
       });
     }
-
-    // if ( posts ) {
-    // 	abelDisplayAnimate();
-    // }
   }
-
   render() {
     const {
-      category,
-      tag,
       posts,
       displayStyle,
       imageSize
@@ -114,7 +103,6 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
         className: "abel-wrapper"
       }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No posts found. Please select some categories and tags.')));
     }
-    // console.log("posts: ".post);
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: 'abel-display-posts abel-display-style-' + displayStyle
     }, posts && posts.length > 0 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -126,20 +114,22 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
       if (featuredImage && !featuredImage.alt) {
         featuredImage.alt = post.title.rendered;
       }
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         className: "shape",
-        href: post.link,
-        key: post.id,
-        "data-post": JSON.stringify({
-          id: post.id,
-          title: post.title.rendered,
-          link: post.link,
-          img_src: featuredImage ? featuredImage.url : '',
-          alt: featuredImage.alt,
-          width: featuredImage.width,
-          height: featuredImage.height
-        })
-      }, post.title.rendered);
+        key: post.id
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("dialog", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, post.title.rendered), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+        src: featuredImage.url,
+        alt: featuredImage.alt,
+        width: featuredImage.width,
+        height: featuredImage.height,
+        loading: "lazy"
+      }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        dangerouslySetInnerHTML: {
+          __html: post.content.rendered
+        }
+      }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+        className: "close-button"
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Close'))), post.title.rendered);
     })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "abel-wrapper"
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No posts found.'))));
@@ -154,7 +144,7 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
     tag,
     numberposts
   } = props.attributes;
-  let postsQuery = {
+  const postsQuery = {
     per_page: numberposts,
     status: 'publish',
     _embed: true,
@@ -401,20 +391,22 @@ const AbelDisplaySave = _ref => {
     if (featuredImage && !featuredImage.alt) {
       featuredImage.alt = post.title.rendered;
     }
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      key: post.id,
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "shape",
-      href: post.link,
-      "data-post": JSON.stringify({
-        id: post.id,
-        title: post.title.rendered,
-        link: post.link,
-        img_src: featuredImage ? featuredImage.url : '',
-        alt: featuredImage.alt,
-        width: featuredImage.width,
-        height: featuredImage.height
-      })
-    }, post.title.rendered);
+      key: post.id
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("dialog", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, post.title.rendered), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: featuredImage.url,
+      alt: featuredImage.alt,
+      width: featuredImage.width,
+      height: featuredImage.height,
+      loading: "lazy"
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      dangerouslySetInnerHTML: {
+        __html: post.content.rendered
+      }
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+      className: "close-button"
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Close'))), post.title.rendered);
   })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "abel-wrapper"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No posts found.'))));
@@ -439,8 +431,8 @@ const getFeaturedOrFirstImage = (post, imageSize) => {
     let image = sizes[imageSize];
 
     // If the desired image size doesn't exist, fall back to 'full'.
-    if (!image && sizes['full']) {
-      image = sizes['full'];
+    if (!image && sizes.full) {
+      image = sizes.full;
     }
 
     // If 'full' size doesn't exist, fall back to the first available size.

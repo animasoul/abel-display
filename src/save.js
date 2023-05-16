@@ -28,33 +28,27 @@ const AbelDisplaySave = ( { attributes } ) => {
 							featuredImage.alt = post.title.rendered;
 						}
 						return (
-							<a
-								key={ post.id }
-								className="shape"
-								href={ post.link }
-								data-post={ JSON.stringify( {
-									id: post.id,
-									title: post.title.rendered,
-									link: post.link,
-									img_src: featuredImage
-										? featuredImage.url
-										: '',
-									alt: featuredImage.alt,
-									width: featuredImage.width,
-									height: featuredImage.height,
-								} ) }
-							>
-								{ /* { featuredImage && (
+							<div className="shape" key={ post.id }>
+								<dialog>
+									<h2>{ post.title.rendered }</h2>
 									<img
 										src={ featuredImage.url }
+										alt={ featuredImage.alt }
 										width={ featuredImage.width }
 										height={ featuredImage.height }
-										alt={ featuredImage.alt }
 										loading="lazy"
 									/>
-								) } */ }
+									<div
+										dangerouslySetInnerHTML={ {
+											__html: post.content.rendered,
+										} }
+									/>
+									<button className="close-button">
+										{ __( 'Close' ) }
+									</button>
+								</dialog>
 								{ post.title.rendered }
-							</a>
+							</div>
 						);
 					} ) }
 				</div>

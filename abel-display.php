@@ -38,9 +38,3 @@ function enqueue_block_editor_assets() {
 }
 add_action( 'enqueue_block_editor_assets', 'enqueue_block_editor_assets' );
 
-function abel_enqueue_tingle_css() {
-    $plugin_url = plugin_dir_url( __FILE__ );
-    wp_enqueue_style('tingle-css',  $plugin_url . '/src/styles/tingle.min.css');
-}
-
-add_action('wp_enqueue_scripts', 'abel_enqueue_tingle_css');

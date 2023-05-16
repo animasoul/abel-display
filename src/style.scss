@@ -4,7 +4,6 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-@import url("./styles/tingle.min");
 $colors: (
 	1: rgb(176, 190, 197),
 	2: rgb(245, 245, 245),
@@ -206,6 +205,17 @@ $roundnessDefault: (
 		aspect-ratio: 1.618;
 		width: 100%;
 		position: relative;
+		dialog {
+			transform: scale(0);
+			transition: transform 0.3s ease-out;
+			opacity: 0;
+			display: block;
+		}
+
+		dialog[open] {
+			transform: scale(1);
+			opacity: 1;
+		}
 
 		> .shape {
 			height: 30%;

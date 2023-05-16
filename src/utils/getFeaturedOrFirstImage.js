@@ -10,8 +10,8 @@ export const getFeaturedOrFirstImage = ( post, imageSize ) => {
 		let image = sizes[ imageSize ];
 
 		// If the desired image size doesn't exist, fall back to 'full'.
-		if ( ! image && sizes[ 'full' ] ) {
-			image = sizes[ 'full' ];
+		if ( ! image && sizes.full ) {
+			image = sizes.full;
 		}
 
 		// If 'full' size doesn't exist, fall back to the first available size.

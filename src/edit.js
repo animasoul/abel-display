@@ -4,7 +4,6 @@ import { Fragment, Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
-//import abelDisplayAnimate from './utils/animate';
 import { getFeaturedOrFirstImage } from './utils/getFeaturedOrFirstImage';
 
 class AbelDisplayEdit extends Component {
@@ -32,8 +31,6 @@ class AbelDisplayEdit extends Component {
 
 	componentDidMount() {
 		const { categories, tags, setAttributes } = this.props;
-		// console.log("this.props: ");
-		// console.log(this.props);
 
 		if ( ! categories ) {
 			apiFetch( { path: '/wp/v2/categories?_fields=id,name' } )
@@ -58,15 +55,10 @@ class AbelDisplayEdit extends Component {
 		if ( posts !== prevProps.posts ) {
 			setAttributes( { posts } );
 		}
-
-		// if ( posts ) {
-		// 	abelDisplayAnimate();
-		// }
 	}
 
 	render() {
-		const { category, tag, posts, displayStyle, imageSize } =
-			this.props.attributes;
+		const { posts, displayStyle, imageSize } = this.props.attributes;
 
 		if ( ! posts || posts.length === 0 ) {
 			return (
@@ -79,7 +71,7 @@ class AbelDisplayEdit extends Component {
 				</Fragment>
 			);
 		}
-		// console.log("posts: ".post);
+
 		return (
 			<div
 				className={
@@ -103,33 +95,27 @@ class AbelDisplayEdit extends Component {
 							}
 
 							return (
-								<a
-									className="shape"
-									href={ post.link }
-									key={ post.id }
-									data-post={ JSON.stringify( {
-										id: post.id,
-										title: post.title.rendered,
-										link: post.link,
-										img_src: featuredImage
-											? featuredImage.url
-											: '',
-										alt: featuredImage.alt,
-										width: featuredImage.width,
-										height: featuredImage.height,
-									} ) }
-								>
-									{ /* { featuredImage && (
+								<div className="shape" key={ post.id }>
+									<dialog>
+										<h2>{ post.title.rendered }</h2>
 										<img
 											src={ featuredImage.url }
+											alt={ featuredImage.alt }
 											width={ featuredImage.width }
 											height={ featuredImage.height }
-											alt={ featuredImage.alt }
 											loading="lazy"
 										/>
-									) } */ }
+										<div
+											dangerouslySetInnerHTML={ {
+												__html: post.content.rendered,
+											} }
+										/>
+										<button className="close-button">
+											{ __( 'Close' ) }
+										</button>
+									</dialog>
 									{ post.title.rendered }
-								</a>
+								</div>
 							);
 						} ) }
 					</div>
@@ -150,7 +136,7 @@ export default compose( [
 		const { getEntityRecords } = select( 'core' );
 		const { category, tag, numberposts } = props.attributes;
 
-		let postsQuery = {
+		const postsQuery = {
 			per_page: numberposts,
 			status: 'publish',
 			_embed: true,
