@@ -2,6 +2,8 @@
 
 Abel Display is a WordPress plugin that allows you to display posts based on specific categories and tags, with a customizable display style. It is designed to be both easy to use and highly customizable, making it perfect for a wide range of use cases.
 
+A comprehensive guide on how this plugin was built can be found at [AJPartnersLtd](https://www.ajpartnersltd.com/building-a-wordpress-gutenberg-block-plugin-a-revised-guide/).
+
 ## Features
 
 - Display posts based on selected categories and/or tags
@@ -11,7 +13,7 @@ Abel Display is a WordPress plugin that allows you to display posts based on spe
 
 ## Installation
 
-1. Download the plugin files from the repository.
+1. Download the plugin files from the [repository](https://github.com/animasoul/abel-display).
 2. In your WordPress admin panel, navigate to **Plugins > Add New > Upload Plugin**.
 3. Click on **Choose File** and select the downloaded plugin files (in .zip format).
 4. Click **Install Now**.
@@ -41,7 +43,21 @@ To set up the development environment and contribute to the project, follow thes
 
 ## Contributing
 
-If you'd like to contribute to the development of this plugin, please feel free to submit issues, pull requests, or suggestions to the project's repository.
+If you'd like to contribute to the development of this plugin, please feel free to submit issues, pull requests, or suggestions to the project's [repository](https://github.com/animasoul/abel-display). We encourage and appreciate all contributions.
+
+## Acknowledgements
+
+The Abel Display project was inspired by the following websites:
+- [Karina Sirqueira](https://karinasirqueira.com/)
+- [Hyperplexed on CodePen](https://codepen.io/Hyperplexed/pen/poVpKdQ)
+
+## Learn More
+
+To learn more about Gutenberg blocks and WordPress plugin development, consider the following resources:
+
+- [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)
+- [Gutenberg Times](https://gutenbergtimes.com/)
+- [Create Guten Block Toolkit](https://github.com/ahmadawais/create-guten-block)
 
 ## License
 
