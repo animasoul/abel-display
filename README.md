@@ -4,6 +4,10 @@ Abel Display is a WordPress plugin that allows you to display posts based on spe
 
 A comprehensive guide on how this plugin was built can be found at [AJPartnersLtd](https://www.ajpartnersltd.com/building-a-wordpress-gutenberg-block-plugin-a-revised-guide/).
 
+## Below is what is displayed when installing the plugin
+
+![Animation gif of the abel-dipsplay plugin in action](./assets/abel-display-plugin.gif)
+
 ## Features
 
 - Display posts based on selected categories and/or tags
