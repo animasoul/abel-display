@@ -61,7 +61,6 @@ To learn more about Gutenberg blocks and WordPress plugin development, consider 
 
 - [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)
 - [Gutenberg Times](https://gutenbergtimes.com/)
-- [Create Guten Block Toolkit](https://github.com/ahmadawais/create-guten-block)
 
 ## License
 
