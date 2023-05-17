@@ -6,50 +6,46 @@ Stable tag:        0.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Example block scaffolded with Create Block tool.
+Abel Display is a WordPress Gutenberg block plugin that allows for the display of posts based on specific categories and tags.
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+Abel Display is a custom WordPress Gutenberg block plugin that allows users to display posts in a customizable style based on selected categories and tags. It's designed to be both easy to use and highly customizable, making it perfect for a wide range of use cases.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+For a detailed guide on how to use Abel Display, check out our article at [https://www.ajpartnersltd.com/building-a-wordpress-gutenberg-block-plugin-a-revised-guide/](https://www.ajpartnersltd.com/building-a-wordpress-gutenberg-block-plugin-a-revised-guide/)
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Upload the plugin files to the `/wp-content/plugins/abel-display` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
+2. Activate the plugin through the 'Plugins' screen in WordPress.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= How do I display posts using Abel Display? =
 
-An answer to that question.
+After installing and activating the plugin, you can add the Abel Display block to any post or page. You can then customize the block settings, such as the categories, tags, and display style, to determine which posts will be displayed.
 
-= What about foo bar? =
+= Can I contribute to the development of this plugin? =
 
-Answer to foo bar dilemma.
+Yes, contributions are welcome! You can contribute by submitting issues, pull requests, or suggestions to the project's repository on GitHub.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Example of Abel Display block settings in the Gutenberg editor.
+2. Example of posts displayed using Abel Display on a WordPress site.
+![Animation gif of the abel-dipsplay plugin in action](./assets/abel-display-plugin.gif)
 
 == Changelog ==
 
 = 0.1.0 =
-* Release
+* Initial release.
 
 == Arbitrary section ==
 
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+Abel Display was inspired by the following websites:
+- [Karina Sirqueira](https://karinasirqueira.com/)
+- Code by Hyperplexed on [Codepen](https://codepen.io/Hyperplexed/pen/poVpKdQ)
+
+You can check out the entire project on GitHub at [https://github.com/animasoul/abel-display/](https://github.com/animasoul/abel-display/)
+
+For more information on building Gutenberg blocks, refer to the official [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/).
