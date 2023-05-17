@@ -585,7 +585,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"create-block/abel-display","version":"0.1.0","title":"Abel Display","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","supports":{"html":false},"textdomain":"abel-display","script":"file:./utils/animate.js","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"category":{"type":"array","default":[]},"tag":{"type":"array","default":[]},"posts":{"type":"array","default":[]},"displayStyle":{"type":"string","default":"default"},"numberposts":{"type":"number","default":5}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"create-block/abel-display","version":"0.1.0","title":"Abel Display","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","supports":{"html":false},"textdomain":"abel-display","script":"file:./utils/animate.js","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"category":{"type":"array","default":[]},"tag":{"type":"array","default":[]},"posts":{"type":"array","default":[]},"displayStyle":{"type":"string","default":"default"},"numberposts":{"type":"number","default":7}}}');
 
 /***/ })
 

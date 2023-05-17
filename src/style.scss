@@ -196,9 +196,7 @@ $roundnessDefault: (
 	height: auto;
 	display: grid;
 	place-items: center;
-	background-color: black;
 	margin: 0;
-	border-radius: 10px;
 	overflow: hidden;
 
 	.abel-wrapper {
@@ -229,6 +227,7 @@ $roundnessDefault: (
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			cursor: pointer;
 			a {
 				text-align: center;
 			}
