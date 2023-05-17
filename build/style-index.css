@@ -43,7 +43,7 @@
   align-items: center;
   cursor: pointer;
 }
-.abel-display-posts .abel-wrapper > .shape p {
+.abel-display-posts .abel-wrapper > .shape > p {
   text-align: center;
   font-size: 1vw;
 }

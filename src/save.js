@@ -47,7 +47,14 @@ const AbelDisplaySave = ( { attributes } ) => {
 										{ __( 'Close' ) }
 									</button>
 								</dialog>
-								<p>{ post.title.rendered }</p>
+								<p>
+									{ post.title.rendered.length > 10
+										? post.title.rendered.substring(
+												0,
+												10
+										  ) + '...'
+										: post.title.rendered }
+								</p>
 							</div>
 						);
 					} ) }
