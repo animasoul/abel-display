@@ -21,6 +21,7 @@ This is a list of tasks, features, and bug fixes that need to be addressed in th
 ## Bug Fixes
 
 - [ ] Fix issue with post thumbnails not displaying correctly on some themes
+- [ ] Seems to crash editor in some cases!???
 - [x] animation buggy in editor
 - [ ] posts are not selected when first adding block
 - [ ] the block shifts to left on loading
