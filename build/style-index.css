@@ -51,42 +51,42 @@
   background-color: rgb(176, 190, 197);
   z-index: 2;
 }
-.abel-display-posts .abel-wrapper > .shape:nth-child(1) p {
+.abel-display-posts .abel-wrapper > .shape:nth-child(1) > p {
   color: rgb(245, 245, 245);
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(2) {
   background-color: rgb(245, 245, 245);
   z-index: 2;
 }
-.abel-display-posts .abel-wrapper > .shape:nth-child(2) p {
+.abel-display-posts .abel-wrapper > .shape:nth-child(2) > p {
   color: rgb(155, 93, 229);
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(3) {
   background-color: rgb(155, 93, 229);
   z-index: 2;
 }
-.abel-display-posts .abel-wrapper > .shape:nth-child(3) p {
+.abel-display-posts .abel-wrapper > .shape:nth-child(3) > p {
   color: rgb(241, 91, 181);
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(4) {
   background-color: rgb(241, 91, 181);
   z-index: 2;
 }
-.abel-display-posts .abel-wrapper > .shape:nth-child(4) p {
+.abel-display-posts .abel-wrapper > .shape:nth-child(4) > p {
   color: rgb(254, 228, 64);
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(5) {
   background-color: rgb(254, 228, 64);
   z-index: 2;
 }
-.abel-display-posts .abel-wrapper > .shape:nth-child(5) p {
+.abel-display-posts .abel-wrapper > .shape:nth-child(5) > p {
   color: rgb(0, 187, 249);
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(6) {
   background-color: rgb(0, 187, 249);
   z-index: 2;
 }
-.abel-display-posts .abel-wrapper > .shape:nth-child(6) p {
+.abel-display-posts .abel-wrapper > .shape:nth-child(6) > p {
   color: rgb(0, 245, 212);
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(7) {

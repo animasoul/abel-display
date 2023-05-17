@@ -237,7 +237,7 @@ $roundnessDefault: (
 				&:nth-child(#{$i}) {
 					background-color: map-get($colors, $i);
 					z-index: 2;
-					p {
+					> p {
 						color: map-get($colors, $i + 1);
 					}
 				}
