@@ -43,8 +43,9 @@
   align-items: center;
   cursor: pointer;
 }
-.abel-display-posts .abel-wrapper > .shape a {
+.abel-display-posts .abel-wrapper > .shape p {
   text-align: center;
+  font-size: 1vw;
 }
 .abel-display-posts .abel-wrapper > .shape:nth-child(1) {
   background-color: rgb(176, 190, 197);

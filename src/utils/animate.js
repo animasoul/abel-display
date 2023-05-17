@@ -1,4 +1,5 @@
 // Function to generate a unique random number in a range
+// Returns a random value between min and max, excluding prev
 const uniqueRand = ( min, max, prev ) => {
 	let next = prev;
 	while ( prev === next )
@@ -6,6 +7,7 @@ const uniqueRand = ( min, max, prev ) => {
 	return next;
 };
 
+// All possible combinations of configuration and roundness
 const combinations = [
 	{ configuration: 1, roundness: 1 },
 	{ configuration: 1, roundness: 2 },
@@ -15,7 +17,10 @@ const combinations = [
 	{ configuration: 3, roundness: 3 },
 ];
 
+// Previous value of the random number
 let prev = 0;
+
+// Id of the interval
 let intervalId;
 
 // Function to start the animation
@@ -23,6 +28,7 @@ const startAnimation = ( wrappers ) => {
 	if ( intervalId !== undefined ) return;
 	intervalId = setInterval( () => {
 		wrappers.forEach( ( wrapper ) => {
+			// Get a random number between 0 and the number of combinations
 			const index = uniqueRand( 0, combinations.length - 1, prev ),
 				// Destructure the combination object
 				{ configuration, roundness } = combinations[ index ];
@@ -42,8 +48,11 @@ function startAnimationOnWrappers( wrappers ) {
 
 // Create a new MutationObserver instance
 const observer = new MutationObserver( ( mutationsList ) => {
+	// Loop over the list of mutations
 	for ( const mutation of mutationsList ) {
+		// If nodes were added
 		if ( mutation.addedNodes.length ) {
+			// Get the newly added wrappers and shapes
 			const newWrappers = document.querySelectorAll( '.abel-wrapper' ),
 				shapes = document.querySelectorAll( '.shape' );
 
@@ -54,7 +63,9 @@ const observer = new MutationObserver( ( mutationsList ) => {
 
 			// Attach events to shapes
 			shapes.forEach( ( shape ) => {
+				// If events have not already been attached
 				if ( ! shape.dataset.eventAttached ) {
+					// Attach events
 					const dialog = shape.querySelector( 'dialog' );
 
 					shape.addEventListener( 'click', () => {
@@ -68,6 +79,7 @@ const observer = new MutationObserver( ( mutationsList ) => {
 						dialog.close();
 					} );
 
+					// Remember that events have been attached
 					shape.dataset.eventAttached = true;
 				}
 			} );

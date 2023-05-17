@@ -228,8 +228,9 @@ $roundnessDefault: (
 			justify-content: center;
 			align-items: center;
 			cursor: pointer;
-			a {
+			p {
 				text-align: center;
+				font-size: 1vw;
 			}
 
 			@for $i from 1 through length($colors) {
