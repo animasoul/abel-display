@@ -26,5 +26,6 @@ This is a list of tasks, features, and bug fixes that need to be addressed in th
 - [ ] the block shifts to left on loading
 - [ ] block not selectable unless through navigator
 - [ ] Still a few linting errors
+- [ ] Tests failing as need to update after major rewite of functionality
 - [x] One test failing
 
