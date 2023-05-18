@@ -232,14 +232,19 @@ $roundnessDefault: (
 			overflow: hidden;
 			> p {
 				text-align: center;
-				font-size: 10vw;
+				font-size: 1vw;
 				line-height: unset;
 				opacity: 0;
-				font-weight: bold;
 				transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* add opacity to the transition properties */
 				transform: scale(0.8); /* start the text out smaller */
 				margin: 0;
 				padding: 0;
+				&::first-letter {
+					text-transform: uppercase;
+					font-size: 10vw;
+					font-weight: bold;
+					letter-spacing: -0.3em;
+				}
 			}
 			&:hover > p {
 				opacity: 1;
@@ -252,6 +257,9 @@ $roundnessDefault: (
 					z-index: 2;
 					> p {
 						color: map-get($colors, $i + 1);
+						&::first-letter {
+							color: map-get($colors, $i + 2);
+						}
 					}
 				}
 			}
