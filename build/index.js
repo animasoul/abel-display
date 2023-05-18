@@ -129,7 +129,7 @@ class AbelDisplayEdit extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Co
         }
       }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
         className: "close-button"
-      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Close'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, post.title.rendered.length > 10 ? post.title.rendered.substring(0, 10) + '...' : post.title.rendered));
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Close'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, post.title.rendered.length > 1 ? post.title.rendered.substring(0, 1) : post.title.rendered));
     })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "abel-wrapper"
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No posts found.'))));
@@ -400,7 +400,7 @@ const AbelDisplaySave = _ref => {
       }
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
       className: "close-button"
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Close'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, post.title.rendered.length > 10 ? post.title.rendered.substring(0, 10) + '...' : post.title.rendered));
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Close'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, post.title.rendered.length > 1 ? post.title.rendered.substring(0, 1) : post.title.rendered));
   })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "abel-wrapper"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No posts found.'))));

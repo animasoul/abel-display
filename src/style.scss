@@ -208,6 +208,7 @@ $roundnessDefault: (
 			transition: transform 0.3s ease-out;
 			opacity: 0;
 			display: block;
+			background-color: inherit;
 		}
 
 		dialog[open] {
@@ -228,9 +229,15 @@ $roundnessDefault: (
 			justify-content: center;
 			align-items: center;
 			cursor: pointer;
+			overflow: hidden;
 			> p {
 				text-align: center;
-				font-size: 1vw;
+				font-size: 10vw;
+				display: none;
+				font-weight: bold;
+			}
+			&:hover > p {
+				display: block;
 			}
 
 			@for $i from 1 through length($colors) {

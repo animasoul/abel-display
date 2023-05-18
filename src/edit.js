@@ -115,11 +115,11 @@ class AbelDisplayEdit extends Component {
 										</button>
 									</dialog>
 									<p>
-										{ post.title.rendered.length > 10
+										{ post.title.rendered.length > 1
 											? post.title.rendered.substring(
 													0,
-													10
-											  ) + '...'
+													1
+											  )
 											: post.title.rendered }
 									</p>
 								</div>
