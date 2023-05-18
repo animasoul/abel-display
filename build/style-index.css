@@ -53,6 +53,8 @@
   font-weight: bold;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* add opacity to the transition properties */
   transform: scale(0.8); /* start the text out smaller */
+  margin: 0;
+  padding: 0;
 }
 .abel-display-posts .abel-wrapper > .shape:hover > p {
   opacity: 1;
