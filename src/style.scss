@@ -233,11 +233,15 @@ $roundnessDefault: (
 			> p {
 				text-align: center;
 				font-size: 10vw;
-				display: none;
+				line-height: unset;
+				opacity: 0;
 				font-weight: bold;
+				transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* add opacity to the transition properties */
+				transform: scale(0.8); /* start the text out smaller */
 			}
 			&:hover > p {
-				display: block;
+				opacity: 1;
+				transform: scale(1);
 			}
 
 			@for $i from 1 through length($colors) {
