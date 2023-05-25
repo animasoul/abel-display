@@ -37,6 +37,16 @@ const startAnimation = ( wrappers ) => {
 			wrapper.dataset.roundness = roundness;
 
 			prev = index;
+
+			// Add mouseover and mouseout event listeners
+			wrapper.addEventListener( 'mouseover', () => {
+				clearInterval( intervalId );
+				intervalId = undefined;
+			} );
+
+			wrapper.addEventListener( 'mouseout', () => {
+				startAnimation( [ wrapper ] );
+			} );
 		} );
 	}, 3000 );
 };
